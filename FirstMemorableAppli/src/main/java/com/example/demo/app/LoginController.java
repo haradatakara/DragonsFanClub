@@ -120,7 +120,6 @@ public class LoginController {
 				session.setAttribute("mailaddress", ui.getMailaddress());
 				session.setAttribute("password", ui.getPassword());
 				session.setAttribute("id", ui.getUser_id());
-				
 				model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
 				
 				return "landing";			
@@ -224,6 +223,8 @@ public class LoginController {
 			boolean isUpdate = loginService.updateResult(ui.getUser_name(), sessionid);
 			if(isUpdate) {
 				model.addAttribute("isUpdate", isUpdate);
+				UserInfo user = loginService.fetchUserInfo((String) session.getAttribute("mailaddress"));
+				session.setAttribute("userlist", user);
 				model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
 				return "update";
 			} else {
