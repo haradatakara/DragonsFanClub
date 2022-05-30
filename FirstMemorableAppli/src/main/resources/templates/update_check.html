@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>更新フォーム</title>
+ <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<link href="/css/style.css" th:href="@{/css/updateCheck.css}" rel="stylesheet">
+<link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="starter-template.css"  th:href="@{/css/starter-template.css}" rel="stylesheet">
+</head>
+<body style="background-color: #eee;">
+	<nav class="navbar navbar-expand-lg navbar-light bg-success">
+		<div class="container-fluid">
+			<a class="navbar-brand mb-0 mr-5 text-white" th:href="@{/baseball/landing}">MyStyle</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="nav-con collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown">
+					<a
+						class="nav-link dropdown-toggle text-white mr-3" href="#"
+						id="navbarDropdownMenuLink" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false">SEARCH
+					</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<li><a class="dropdown-item" type="submit" th:href="@{all_search/}">ALL</a></li>
+							<li><a class="dropdown-item" th:href="@{part_search/}">PART</a></li>
+						</ul>	
+					</li>
+				    <li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{/baseball/landing/insert/}">INSERT</a></li>
+					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{/baseball/landing/update/}">UPDATE</a></li>
+					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{/baseball/landing/delete/}">DELETE</a></li>
+					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{/baseball/landing/shopping/}">SHOPPING</a></li>
+					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{/baseball/landing/twitter/}">TWITTER</a></li>
+				</ul>
+				<div>				   
+				     <p class="nav-link text-white" th:if="${form}" th:text="${form.getUser_name()} + 'さん、こんにちは！'"></p>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="update-fluid">
+		<h1 class="sec-title">更新フォーム</h1>
+		<div class="table-container">
+			<form th:action="@{/baseball/landing/update}" th:method="POST">
+				<table class="table table-striped" style="margin-bottom: 0rem;">
+					<tr>
+						<td th:text="${secTitle}"></td>
+					    <td><input type="text" th:value="${inputValue}" name="sectionCon" /></td>
+						<td><button type="submit" class="update-btn" >更新</button></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	<footer>
+	  <p class="footer">&copy;Takara.H</p>
+	</footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

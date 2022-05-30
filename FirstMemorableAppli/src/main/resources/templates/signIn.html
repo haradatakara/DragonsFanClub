@@ -1,0 +1,50 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="サインイン機能">
+<meta name="author" content="Takara">
+<title>ログインページ</title>
+ <!-- Bootstrap core CSS -->
+     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css"  th:href="@{/css/starter-template.css}" rel="stylesheet">
+</head>
+<body style="background-color: #eee;">
+	<nav class="navbar navbar-light bg-success">
+		<div class="container-fluid">
+			<span class="navbar-brand mb-0 h8 text-white">MyStyle</span>
+		</div>
+	</nav>
+	<!-- <form method="post" th:action="@{/baseball/top}"> -->
+	<form method="POST" th:action="@{/baseball/landing}" th:object="${signInForm}">
+	    <h1 class="title" th:text="${title}">タイトル</h1>
+	    <p class="signInComplete" th:if="${signInComplete}" th:text="${signInComplete}"></p>
+	    <p class="input-error" th:if="${loginError}" th:text="${loginError}"></p>
+		<div class="mb-3">
+			<label for="exampleInputEmail1" class="form-label">メールアドレス</label> 
+			<div class="input-error" th:if="${#fields.hasErrors('mailaddress')}" th:errors="*{mailaddress}"></div>
+			<input type="email" class="form-control" name="mailaddress"
+				id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="example@mail.com" th:value="*{mailaddress}">
+		</div>
+		<div class="mb-4">
+			<label for="exampleInputPassword1" class="form-label">パスワード</label>
+			<div class="input-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+			<input type="password" name="password" class="form-control" id="exampleInputPassword1" th:value="*{password}">
+		</div>
+		<div class="mb-5 btn-wrapper">
+		<input type="submit" class="btn btn-primary"  value="ログイン" />
+		</div>
+		<div class="mb-3 btn-wrapper">
+		<p>まだ会員登録されていない方はこちらへ！</p>
+		<p>☟☟☟☟☟☟☟☟☟☟☟</p>
+		<input type="button" onclick="location.href='./signUp'" value="会員登録" class="btn btn-success" />
+		</div>
+	</form>
+</body>
+</html>

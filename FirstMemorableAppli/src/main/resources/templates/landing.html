@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>LandingPage</title>
+ <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link href="/css/style.css" th:href="@{/css/landing.css}" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css"  th:href="@{/css/starter-template.css}" rel="stylesheet">
+</head>
+<body style="background-color: #eee;">
+	<nav class="navbar navbar-expand-lg navbar-light bg-success">
+		<div class="container-fluid">
+			<a class="navbar-brand mb-0 mr-5 text-white" th:href="@{/baseball/landing}">MyStyle</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="nav-con collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown">
+					<a
+						class="nav-link dropdown-toggle text-white mr-3" href="#"
+						id="navbarDropdownMenuLink" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false">SEARCH
+					</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<li><a class="dropdown-item" type="submit" th:href="@{landing/all_search}">ALL</a></li>
+							<li><a class="dropdown-item" th:href="@{landing/part_search}">PART</a></li>
+						</ul>	
+					</li>
+					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{landing/insert}">INSERT</a></li>
+					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{landing/update}">UPDATE</a></li>
+					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{landing/delete}">DELETE</a></li>
+					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{landing/shopping}">SHOPPING</a></li>
+					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{landing/twitter}">TWITTER</a></li>
+				</ul>
+				<div>				   
+				     <p class="nav-link text-white" th:if="${form}" th:text="${form.getUser_name()} + 'さん、こんにちは！'"></p>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner mainvisual">
+    <div class="carousel-item active">
+      <img src="/img/img1.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/img/img2.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/img/img3.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+	<main class="container-fluid">
+	<div class="section-container">
+		<button class="card" th:onclick="location.href='/baseball/landing/all_search'">
+			<img src="/img/img4.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">選手検索</h5>
+				<p class="card-text">Some quick example text to build on the
+					card title and make up the bulk of the card's content.</p>
+			</div>
+		</button>
+		<button class="card" th:onclick="location.href='/baseball/landing/update'">
+			<img src="/img/hit-g36d630938_640.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">個人情報の変更</h5>
+				<p class="card-text">Some quick example text to build on the
+					card title and make up the bulk of the card's content.</p>
+			</div>
+		</button>
+		<button class="card" th:onclick="location.href='/baseball/landing/insert'">
+			<img src="/img/img1.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">INSERT</h5>
+				<p class="card-text">Some quick example text to build on the
+					card title and make up the bulk of the card's content.</p>
+			</div>
+		</button>
+		<button class="card" th:onclick="location.href='/baseball/landing/delete'">
+			<img src="/img/img5.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">DELETE</h5>
+				<p class="card-text">Some quick example text to build on the
+					card title and make up the bulk of the card's content.</p>
+			</div> 
+		</button>
+		<button class="card" th:onclick="location.href='/baseball/landing/shopping'">
+			<img src="/img/img2.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">SHOPPING</h5>
+				<p class="card-text">Some quick example text to build on the
+					card title and make up the bulk of the card's content.
+				</p>
+			</div>
+		</button>
+		<button class="card" th:onclick="location.href='/baseball/landing/twitter'">
+			<img src="/img/img3.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">TWITTER</h5>
+				<p class="card-text">Some quick example text to build on the
+					card title and make up the bulk of the card's content.</p>
+			</div>
+		</button>
+	</div>
+	<footer>
+	  <p class="footer">&copy;Takara.H</p>
+	</footer>
+	</main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
