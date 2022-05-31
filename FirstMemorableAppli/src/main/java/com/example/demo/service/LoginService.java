@@ -19,8 +19,10 @@ public interface LoginService {
     
     boolean checkUnique(String inputWord);
     
-    UserInfo fetchUserInfo(String mail);
+    UserInfo fetchUserInfoMail(String mail);
+    UserInfo fetchUserInfoId(int id);
     
-    boolean updateResult(String inputName, int id);
-
+    boolean updateResultName(String inputName, int id);
+    boolean updateResultMail(String inputMail, int id);
+    boolean updateResultPass(String inputPass, int id);
 }

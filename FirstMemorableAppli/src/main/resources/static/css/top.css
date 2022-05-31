@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+
+html {
+	font-size: 100%;
+}
+
+body {
+	padding-top: -5rem;
+}
+
+
+form {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 0 5%;
+}
+
+a {
+	transition: all .3s;
+	text-decoration: none;
+}
+
+a:hover {
+	opacity: .7;
+}
+
+nav {
+	height: 150px;
+}
+
+.nav-con {
+	justify-content: space-between;
+}
+
+.nav-con p {
+	padding-top: 20px;
+}
+
+.navbar {
+	height: 100px;
+}
+
+.title {
+	text-align: center;
+	margin: 50px 0;
+}
+
+
+.container-fluid {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 10%;
+}
+
+
+
+

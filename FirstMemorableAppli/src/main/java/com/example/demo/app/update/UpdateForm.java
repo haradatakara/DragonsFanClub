@@ -1,7 +1,5 @@
 package com.example.demo.app.update;
 
-import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateForm {
-	@NotNull
-	private String sectionCon;
+	private String name;
+	
+	private String mail_address;
+
+	private String password;
+	
+	private String secTitle;
 }

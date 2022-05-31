@@ -84,6 +84,8 @@ public class LoginController {
 				UserInfo userInfo = new UserInfo();
 				userInfo.setUser_name(signUpForm.getUsername());
 				userInfo.setPassword(signUpForm.getPassword());
+				
+				//メールアドレスがユニークかどうか判定
 				if(loginService.checkUnique(signUpForm.getMailaddress())) {
 				} else {
 					model.addAttribute("signUpForm", signUpForm);
@@ -114,14 +116,14 @@ public class LoginController {
 				
 			boolean isLogin = loginService.signIn(userInfo);
 			if(isLogin) {
-				UserInfo ui = loginService.fetchUserInfo(signInForm.getMailaddress());
+				UserInfo ui = loginService.fetchUserInfoMail(signInForm.getMailaddress());
 				session.setAttribute("userlist", ui);
 				session.setAttribute("username", ui.getUser_name());
 				session.setAttribute("mailaddress", ui.getMailaddress());
 				session.setAttribute("password", ui.getPassword());
 				session.setAttribute("id", ui.getUser_id());
-				model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
-				
+				UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+				model.addAttribute("form", user);
 				return "landing";			
 			} else {
 				model.addAttribute("title", "ログインページ");
@@ -138,11 +140,10 @@ public class LoginController {
 	@GetMapping("/landing") 
 	public String landing(Model model){
 		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
 		return "landing";
 	}
-	
-	
-	
 	
 	
 	
@@ -150,7 +151,8 @@ public class LoginController {
 	public String allSearch(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
 		return "all_search";
 	}
 	
@@ -158,52 +160,53 @@ public class LoginController {
 	public String partSearch(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
 		return "part_search";
 	}
 	@GetMapping({"landing/insert"})
 	public String insert(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
 		return "insert";
 	}
 	
 	@GetMapping("landing/update")
 	public String update(Model model) { 
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
 		return "update";
 	}
 	
 	@GetMapping("landing/update_check_name")
 	public String updateCheckName(Model model) { 
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
-		model.addAttribute("secTitle", "名前");
-		model.addAttribute("inputValue", (String) session.getAttribute("username"));
-		return "update_check";
-	}
-	@GetMapping("landing/update_check_mail")
-	public String updateCheckMail(Model model) { 
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
-		model.addAttribute("secTitle", "メールアドレス");
-		model.addAttribute("inputValue", (String) session.getAttribute("mailaddress"));
-		return "update_check";
-	}
-	@GetMapping("landing/update_check_pass")
-	public String updateCheckPass(Model model) { 
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
-		model.addAttribute("secTitle", "パスワード");
-		model.addAttribute("inputValue", (String) session.getAttribute("password"));
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
+		model.addAttribute("secTitle", "Name");
+		model.addAttribute("inputValue", user.getUser_name());
 		return "update_check";
 	}
 	
-	@GetMapping("landing/delete")
-	public String delete(Model model) { 
-		List<PlayersInfo> list = playerService.allSearch();
-		model.addAttribute("resultList", list);
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
-		return "delete";
+	@GetMapping("landing/update_check_mail")
+	public String updateCheckMail(Model model) { 
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
+		model.addAttribute("secTitle", "MailAddress");
+		model.addAttribute("inputValue",user.getMailaddress());
+		return "update_check";
 	}
+	
+	@GetMapping("landing/update_check_pass")
+	public String updateCheckPass(Model model) { 
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
+		model.addAttribute("secTitle", "Password");
+		model.addAttribute("inputValue", user.getPassword());
+		return "update_check";
+	}
+	
 	
 	@PostMapping("landing/update") 
 	public String updateResName(
@@ -212,18 +215,48 @@ public class LoginController {
 			BindingResult result,
 			RedirectAttributes redirectAttributes
 		){
-		
+		System.out.println(updateForm.getSecTitle());
 		if(result.hasErrors()) {
 			model.addAttribute("updateError", "更新失敗です。");
-			return "update_check";
+			return "redirect:update_check";
 		} else {
-			UserInfo ui = new UserInfo();
-			ui.setUser_name(updateForm.getSectionCon());
-			int sessionid =  (int) session.getAttribute("id");
-			boolean isUpdate = loginService.updateResult(ui.getUser_name(), sessionid);
+			int sessionId =  (int) session.getAttribute("id");
+			boolean isUpdate = false;
+			
+			if(updateForm.getSecTitle().equals("Name")) {
+				if(!updateForm.getName().equals("")) {
+					isUpdate = loginService.updateResultName(updateForm.getName(), sessionId);							
+				} else {
+					model.addAttribute("error", "値を入力してください");
+					model.addAttribute("secTitle", "Name");
+					model.addAttribute("inputValue",updateForm.getName());
+					return "update_check";
+				}
+			} else if(updateForm.getSecTitle().equals("MailAddress")) {
+				//メールアドレスがユニークかどうか判定
+				if(loginService.checkUnique(updateForm.getMail_address())) {
+					isUpdate = loginService.updateResultMail(updateForm.getMail_address(), sessionId);
+				} else {
+					model.addAttribute("error", "そのメールアドレスは、すでに登録済みです。");
+					model.addAttribute("secTitle", "MailAddress");
+					model.addAttribute("inputValue",updateForm.getMail_address());
+					return "update_check";
+				}
+			} else {
+				isUpdate = loginService.updateResultPass(updateForm.getPassword(), sessionId);
+				if(!updateForm.getPassword().equals("")) {
+					isUpdate = loginService.updateResultPass(updateForm.getPassword(), sessionId);							
+				} else {
+					model.addAttribute("error", "値を入力してください");
+					model.addAttribute("secTitle", "Password");
+					model.addAttribute("inputValue",updateForm.getPassword());
+					return "update_check";
+				}
+			}
+
 			if(isUpdate) {
 				model.addAttribute("isUpdate", isUpdate);
-				UserInfo user = loginService.fetchUserInfo((String) session.getAttribute("mailaddress"));
+				UserInfo user = loginService.fetchUserInfoId(sessionId);
 				session.setAttribute("userlist", user);
 				model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
 				return "update";
@@ -233,19 +266,28 @@ public class LoginController {
 			}
 		}
 	}
-	
+	@GetMapping("landing/delete")
+	public String delete(Model model) { 
+		List<PlayersInfo> list = playerService.allSearch();
+		model.addAttribute("resultList", list);
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
+		return "delete";
+	}
 	@GetMapping("landing/shopping")
 	public String shopping(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
 		return "shopping";
 	}
 	@GetMapping("landing/twitter")
 	public String twitter(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
-		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
 		return "twitter";
 	}
 	
@@ -273,13 +315,15 @@ public class LoginController {
 				} else {
 					model.addAttribute("list", peatcherList);
 					model.addAttribute("isRecord", "peatcher");
-					model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+					UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+					model.addAttribute("form", user);
 					return "part_search_result";
 				}
 			} else {
 				model.addAttribute("list", batterList);
 				model.addAttribute("isRecord", "batter");
-				model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+				UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+				model.addAttribute("form", user);
 				return "part_search_result";
 			}
 		}
@@ -304,7 +348,8 @@ public class LoginController {
 				return "part_search";
 			} else {
 				model.addAttribute("list", list);	
-				model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
+				UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+				model.addAttribute("form", user);
 				return "part_search_result";
 			}
 		}

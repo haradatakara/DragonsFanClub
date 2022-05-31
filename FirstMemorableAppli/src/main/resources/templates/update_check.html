@@ -44,23 +44,38 @@
 					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{/baseball/landing/shopping/}">SHOPPING</a></li>
 					<li class="nav-item mr-3"><a class="nav-link text-white" th:href="@{/baseball/landing/twitter/}">TWITTER</a></li>
 				</ul>
-				<div>				   
-				     <p class="nav-link text-white" th:text="${form.getUser_name()} + 'さん、こんにちは！'"></p>
-				</div>
+				<th:block th:if="${form}">	  
+				     <p class="nav-link text-white"  th:text="${form.getUser_name()} + 'さん、こんにちは！'"></p>
+				</th:block>
 			</div>
 		</div>
 	</nav>
 	<div class="update-fluid">
 		<h1 class="sec-title">更新フォーム</h1>
-		<div class="table-container">
+		<div class="table-container"> 
 			<form th:action="@{/baseball/landing/update}" th:method="POST">
-				<table class="table table-striped" style="margin-bottom: 0rem;">
+				<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+				<table class="table" style="margin: 0 auto; padding-top: 30px;">
 					<tr>
-						<td th:text="${secTitle}"></td>
-					    <td><input type="text" th:value="${inputValue}" name="sectionCon" /></td>
-						<td><button type="submit" class="update-btn" >更新</button></td>
+						<td>
+						  <p th:text="${secTitle}" style="text-align: center; padding: 20px; font-size: 18px;"></p>
+						</td> 
+						<td>
+						    <th:block th:switch="${secTitle}">
+								<input style="padding:10px 20px; margin-top: 10px; font-size: 20px;" th:case="'Name'" type="text" th:value="${inputValue}" name="name" />
+								<input style="padding:10px 20px; margin-top: 10px; font-size: 20px;" th:case="'MailAddress'" type="text" th:value="${inputValue}" name="mail_address" />
+								<input style="padding:10px 20px; margin-top: 10px; font-size: 20px;" th:case="'Password'" type="text" th:value="${inputValue}" name="password" />
+							</th:block>
+								<input  type="text" th:value="${secTitle}" name="secTitle" style="display: none;" />
+						</td>
+						<td>
+						</td>
 					</tr>
 				</table>
+				   <div class="btn-wrapper" style="margin: 0px auto 50px; "> 
+				    <button type="submit" class="btn btn-primary">Update</button>
+			        <a onclick="location.href='./update'" class="btn btn-success" style="color: white; padding-top:10px; ">Return</a>
+				   </div>
 			</form>
 		</div>
 	</div>

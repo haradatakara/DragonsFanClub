@@ -11,13 +11,6 @@ body {
 	font-family: 'Amatic SC', cursive;
 }
 
-
-/* form {
-	max-width: 600px;
-	margin: 0 auto;
-	padding: 0 5%;
-} */
-
 a {
 	text-decoration: none;
 }
@@ -28,7 +21,6 @@ a {
 
 .nav-con p {
 	padding-top: 20px;
-	margin-right: 70px; 
 }
 
 

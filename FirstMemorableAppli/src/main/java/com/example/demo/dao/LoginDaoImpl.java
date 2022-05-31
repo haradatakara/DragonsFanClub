@@ -49,23 +49,48 @@ public class LoginDaoImpl implements LoginDao {
 		return list;
 	}
 	
-	public boolean updateResult(String inputName, int id) {
+	public boolean updateResultName(String inputName, int id) {
 		boolean isUpdate = true;
-		System.out.println(inputName);
 		String sql = "UPDATE usersInfo SET user_name = ? where user_id = ? ";
 		int num =  jdbcTemplate.update(sql, inputName, id);
-		if( 0 == num) {
-			isUpdate = false;
-		}
+		if( 0 == num) isUpdate = false;
+		
+		return isUpdate;
+	}
+	public boolean updateResultMail(String inputMail, int id) {
+		boolean isUpdate = true;
+		String sql = "UPDATE usersInfo SET mailaddress = ? where user_id = ? ";
+		int num =  jdbcTemplate.update(sql, inputMail, id);
+		if( 0 == num) isUpdate = false;
+		
+		return isUpdate;
+	}
+	public boolean updateResultPass(String inputPass, int id) {
+		boolean isUpdate = true;
+		String sql = "UPDATE usersInfo SET password = ? where user_id = ? ";
+		int num =  jdbcTemplate.update(sql, inputPass, id);
+		if( 0 == num) isUpdate = false;
 		
 		return isUpdate;
 	}
 	
-	public UserInfo fetchUserInfo(String mail) {
+	public UserInfo fetchUserInfoMail(String mail) {
 		String sql = "SELECT password, mailaddress, user_name, user_id FROM usersInfo where mailaddress = ?";
 		Map<String, Object> resultMap = jdbcTemplate.queryForMap(sql, mail);
-		
 		UserInfo ui = new UserInfo();
+		
+		ui.setMailaddress((String) resultMap.get("mailaddress"));
+		ui.setPassword((String) resultMap.get("password"));
+		ui.setUser_name((String) resultMap.get("user_name"));
+		ui.setUser_id((int) resultMap.get("user_id"));
+		return ui;
+	}
+	
+	public UserInfo fetchUserInfoId(int id) {
+		String sql = "SELECT password, mailaddress, user_name, user_id FROM usersInfo where user_id = ?";
+		Map<String, Object> resultMap = jdbcTemplate.queryForMap(sql, id);
+		UserInfo ui = new UserInfo();
+		
 		ui.setMailaddress((String) resultMap.get("mailaddress"));
 		ui.setPassword((String) resultMap.get("password"));
 		ui.setUser_name((String) resultMap.get("user_name"));

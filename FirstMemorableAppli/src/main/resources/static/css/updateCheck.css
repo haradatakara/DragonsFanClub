@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-@charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
-
 html {
 	font-size: 100%;
 	
@@ -11,18 +7,12 @@ html {
 
 body {
 	padding-top: -5rem;
-	font-family: 'Amatic SC', cursive;
 }
 
-
-form {
-	max-width: 600px;
-	margin: 0 auto;
-	padding: 0 5%;
-}
 
 a {
 	text-decoration: none;
+	color: white;
 }
 
 .nav-con {
@@ -31,7 +21,6 @@ a {
 
 .nav-con p {
 	padding-top: 20px;
-	margin-right: 70px; 
 }
 
 .title {
@@ -41,6 +30,7 @@ a {
 
 .sec-title {
 	padding: 50px 0 30px;
+	margin-bottom: 30px;
 }
 
 .btn {
@@ -59,7 +49,6 @@ a {
 	border: 1px solid #c3c5c5;
 	width: 100%;
 	padding: 7px;
-	/* padding-left: 10px; */
 	border-radius: 5px;
 }
 
@@ -68,7 +57,6 @@ a {
 	text-align: center;
 	font-size: 1.3rem;
 	font-weight: bold;
-	/* margin: 0 auto; */
 }
 
 .navbar {
@@ -85,7 +73,8 @@ a {
 	max-width: 1280px;
 	margin: 0 auto;
 	padding: 0 10%;
-}
+} 
+
 
 .signInComplete {
 	color: blue	;
@@ -107,10 +96,8 @@ nav {
 
 a {
 	transition: all .3s;
-	font-family: 'Amatic SC', cursive;
-	font-size: 1.5rem;
-	text-decoration: none;
-	color: skyblue;
+	text-decoration: none
+	
 }
 
 a:hover {
@@ -130,26 +117,25 @@ a:hover {
 	justify-content: space-around;
 }
 
-.table-container {
-	display: flex;
-}
+
 
 .table {
-	width:  70%;
+	width:  100%;
 }
 
 .update-sec {
-	width: 30%;
 	text-align: center;
-	padding: 60px 0;
+	margin-bottom: 30px;
+	font-weight: bold;
+	font-size: 1.6rem;
 }
 
 td {
 	width: 20%;
 }
 
-td:first-child {
-	width: 20%;
+td:nth-child(2) {
+	width: 50%;
 	padding-top: 30px;
 } 
 

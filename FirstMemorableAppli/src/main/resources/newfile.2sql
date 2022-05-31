@@ -2,6 +2,7 @@
 /* Drop Tables */
 
 DROP TABLE age;
+DROP TABLE peatcher_record;
 
 
 
@@ -15,45 +16,27 @@ CREATE TABLE age
 	PRIMARY KEY (age_id)
 );
 
-DROP TABLE peatcher_record;
 
 CREATE TABLE peatcher_record
 (
-	player_id int NOT NULL UNIQUE,
+	palyer_id int NOT NULL UNIQUE,
 	win int,
 	lose int,
 	era double,
-	PRIMARY KEY (player_id)
+	PRIMARY KEY (palyer_id)
 );
-
-INSERT INTO peatcher_record VALUES 
-(1, 10, 8, 2.34),
-(2, 10, 8, 2.34),
-(3, 10, 8, 2.34),
-(4, 10, 8, 2.34),
-(5, 10, 8, 2.34),
-(6, 10, 8, 2.34),
-(7, 10, 8, 2.34),
-(8, 10, 8, 2.34);
-
-
-ALTER TABLE peatcher_record
-	ADD FOREIGN KEY (player_id)
-	REFERENCES players_info (player_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
 
 
 DROP TABLE usersInfo;
 CREATE TABLE usersInfo
 (
-	user_id int NOT NULL UNIQUE AUTO_INCREMENT,
+	user_id int DEFAULT 100 NOT NULL UNIQUE,
 	user_name varchar(50) NOT NULL,
 	mailaddress varchar(50) NOT NULL UNIQUE,
 	password varchar(30) NOT NULL,
+	age int NOT NULL,
 	created datetime NOT NULL,
-	age_id int NOT NULL UNIQUE,
+	age_id int NOT NULL,
 	PRIMARY KEY (user_id)
 );
 

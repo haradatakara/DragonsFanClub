@@ -57,8 +57,12 @@ public class LoginServiceImpl implements LoginService {
 		return isUnique;
 	}
 	
-	public UserInfo fetchUserInfo(String mail) {
-		UserInfo ui = dao.fetchUserInfo(mail);
+	public UserInfo fetchUserInfoMail(String mail) {
+		UserInfo ui = dao.fetchUserInfoMail(mail);
+		return ui;
+	}
+	public UserInfo fetchUserInfoId(int id) {
+		UserInfo ui = dao.fetchUserInfoId(id);
 		return ui;
 	}
 
@@ -67,8 +71,16 @@ public class LoginServiceImpl implements LoginService {
 		dao.signUp(usersInfo);
 	}
 	
-	public boolean updateResult(String inputName, int id) {
-        boolean isUpdate = dao.updateResult(inputName, id);
+	public boolean updateResultName(String inputName, int id) {
+        boolean isUpdate = dao.updateResultName(inputName, id);
+		return isUpdate;
+	}
+	public boolean updateResultMail(String inputMail, int id) {
+		boolean isUpdate = dao.updateResultMail(inputMail, id);
+		return isUpdate;
+	}
+	public boolean updateResultPass(String inputPass, int id) {
+		boolean isUpdate = dao.updateResultPass(inputPass, id);
 		return isUpdate;
 	}
 
