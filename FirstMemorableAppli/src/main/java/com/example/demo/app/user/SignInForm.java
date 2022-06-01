@@ -1,6 +1,6 @@
-package com.example.demo.entity;
+package com.example.demo.app.user;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserInfo {
-	private int user_id;
-	private String user_name;
+public class SignInForm {
+	@NotNull
 	private String mailaddress;
+	@NotNull
 	private String password;
-	private int age_id;
-	private LocalDateTime datetime;
+	
+	private String user_name;
 }

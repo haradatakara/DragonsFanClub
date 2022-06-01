@@ -1,14 +1,7 @@
 
-/* Drop Tables */
-
-DROP TABLE age;
-DROP TABLE peatcher_record;
-
-
-
-
 /* Create Tables */
 
+DROP TABLE age;
 CREATE TABLE age
 (
 	age_id int NOT NULL UNIQUE,
@@ -17,6 +10,19 @@ CREATE TABLE age
 );
 
 
+DROP TABLE comment;
+CREATE TABLE comment
+(
+	id int NOT NULL UNIQUE,
+	comment varchar(140) NOT NULL,
+	created datetime NOT NULL,
+	user_img varchar(50),
+	user_id int DEFAULT 100 NOT NULL,
+	PRIMARY KEY (id)
+);
+
+
+DROP TABLE peatcher_record;
 CREATE TABLE peatcher_record
 (
 	palyer_id int NOT NULL UNIQUE,
@@ -30,23 +36,28 @@ CREATE TABLE peatcher_record
 DROP TABLE usersInfo;
 CREATE TABLE usersInfo
 (
-	user_id int DEFAULT 100 NOT NULL UNIQUE,
+	user_id int NOT NULL UNIQUE AUTO_INCREMENT,
 	user_name varchar(50) NOT NULL,
 	mailaddress varchar(50) NOT NULL UNIQUE,
 	password varchar(30) NOT NULL,
-	age int NOT NULL,
 	created datetime NOT NULL,
 	age_id int NOT NULL,
 	PRIMARY KEY (user_id)
 );
 
 
-
 /* Create Foreign Keys */
 
 ALTER TABLE usersInfo
 	ADD FOREIGN KEY (age_id)
-	REFERENCES age (age_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE comment
+	ADD FOREIGN KEY (user_id)
+	REFERENCES usersInfo (user_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;

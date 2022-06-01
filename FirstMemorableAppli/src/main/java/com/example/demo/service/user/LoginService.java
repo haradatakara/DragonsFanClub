@@ -1,8 +1,8 @@
-package com.example.demo.service;
+package com.example.demo.service.user;
 
 import java.util.List;
 
-import com.example.demo.entity.UserInfo;
+import com.example.demo.entity.user.UserInfo;
 
 public interface LoginService {
 	void update(UserInfo usersInfo);

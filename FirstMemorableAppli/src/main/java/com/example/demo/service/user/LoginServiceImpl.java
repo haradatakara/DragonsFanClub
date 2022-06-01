@@ -1,12 +1,12 @@
-package com.example.demo.service;
+package com.example.demo.service.user;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.LoginDao;
-import com.example.demo.entity.UserInfo;
+import com.example.demo.dao.user.LoginDao;
+import com.example.demo.entity.user.UserInfo;
 
 @Service
 public class LoginServiceImpl implements LoginService {

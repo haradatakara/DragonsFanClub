@@ -1,4 +1,4 @@
-package com.example.demo.dao;
+package com.example.demo.dao.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.UserInfo;
+import com.example.demo.entity.user.UserInfo;
 
 @Repository
 public class LoginDaoImpl implements LoginDao {

@@ -1,6 +1,5 @@
-package com.example.demo.app;
+package com.example.demo.app.logined;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,94 +13,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.app.players.PartSearchForm;
 import com.example.demo.app.update.UpdateForm;
-import com.example.demo.entity.UserInfo;
+import com.example.demo.app.user.SignInForm;
 import com.example.demo.entity.players.PlayersInfo;
-import com.example.demo.service.LoginService;
-import com.example.demo.service.PlayerService;
+import com.example.demo.entity.user.UserInfo;
+import com.example.demo.service.players.PlayerService;
+import com.example.demo.service.tweet.TweetService;
+import com.example.demo.service.user.LoginService;
 
 @Controller
-@RequestMapping("/baseball")
-@SessionAttributes(types= {SignInForm.class, SignUpForm.class, UserInfo.class})
-public class LoginController {
+@RequestMapping("/baseball/landing")
+public class LoginedController {
 	
+	private final TweetService tweetService;
 	private final LoginService loginService;
 	private final PlayerService playerService;
-	
 	@Autowired
 	HttpSession session;
 	
 	@Autowired
-	public LoginController(LoginService loginService,PlayerService playerService) {
+	public LoginedController(TweetService tweetService, LoginService loginService, PlayerService playerService) {
 		this.loginService = loginService;
+		this.tweetService = tweetService;
 		this.playerService = playerService;
 	}
-	@ModelAttribute("signInForm")
-	public SignInForm setUpSignInForm() {
-		return new SignInForm();
-	}
-	
-	@ModelAttribute("signUpForm")
-	public SignUpForm setUpSignUpForm() {
-		return new SignUpForm();
-	}
-	
-	@ModelAttribute("usersInfo")
-	public UserInfo setUpUserInfo() {
-		return new UserInfo();
-	}
-	
-	@GetMapping("/signIn")
-	public String signIn(Model model, SignInForm signInForm) {
-		model.addAttribute("title", "ログインページ");
-		return "signIn";
-	}
-	
-	@GetMapping("/signUp")
-	public String signUp(Model model, SignUpForm signUpForm) {
-		model.addAttribute("title", "会員登録ページ");
-		return "signUp";
-	}
-	
-	@PostMapping("/signUp")
-	public String isSignUp(
-			Model model ,
-			@Valid @ModelAttribute SignUpForm signUpForm, 
-			BindingResult result,
-			RedirectAttributes redirectAttributes
-			) {
-			if(result.hasErrors() || !signUpForm.getPassword().equals(signUpForm.getRepassword())) {
-				model.addAttribute("signUpForm", signUpForm);
-				model.addAttribute("title", "会員登録ページ");
-				return "signUp";
-			} else {
-				model.addAttribute("title", "ログインページ");
-				redirectAttributes.addFlashAttribute("signInComplete", "会員登録に成功しました！ログインを行ってください");
-				UserInfo userInfo = new UserInfo();
-				userInfo.setUser_name(signUpForm.getUsername());
-				userInfo.setPassword(signUpForm.getPassword());
-				
-				//メールアドレスがユニークかどうか判定
-				if(loginService.checkUnique(signUpForm.getMailaddress())) {
-				} else {
-					model.addAttribute("signUpForm", signUpForm);
-					model.addAttribute("title", "会員登録ページ");
-					model.addAttribute("mailError", "そのメールアドレスは、すでに登録済みです。");
-					return "signUp";
-				}
-				userInfo.setMailaddress(signUpForm.getMailaddress());
-				userInfo.setAge_id(signUpForm.getAge_id());
-				userInfo.setDatetime(LocalDateTime.now());		
-				loginService.signUp(userInfo);	
-				return "redirect:signIn";
-			} 	
-	}
-	
-	@PostMapping("/landing") 
+	@PostMapping
 	public String isSignIn(
 			@Valid @ModelAttribute("signInForm") SignInForm signInForm, 
 			@ModelAttribute("usersInfo") UserInfo usersInfo, 
@@ -137,7 +76,7 @@ public class LoginController {
 		}
 	}
 	
-	@GetMapping("/landing") 
+	@GetMapping
 	public String landing(Model model){
 		model.addAttribute("form", (UserInfo) session.getAttribute("userlist"));
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
@@ -147,7 +86,7 @@ public class LoginController {
 	
 	
 	
-	@GetMapping("landing/all_search")
+	@GetMapping("all_search")
 	public String allSearch(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
@@ -156,7 +95,7 @@ public class LoginController {
 		return "all_search";
 	}
 	
-	@GetMapping("landing/part_search")
+	@GetMapping("part_search")
 	public String partSearch(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
@@ -164,7 +103,7 @@ public class LoginController {
 		model.addAttribute("form", user);
 		return "part_search";
 	}
-	@GetMapping({"landing/insert"})
+	@GetMapping("insert")
 	public String insert(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
@@ -173,14 +112,14 @@ public class LoginController {
 		return "insert";
 	}
 	
-	@GetMapping("landing/update")
+	@GetMapping("update")
 	public String update(Model model) { 
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
 		return "update";
 	}
 	
-	@GetMapping("landing/update_check_name")
+	@GetMapping("update_check_name")
 	public String updateCheckName(Model model) { 
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
@@ -189,7 +128,7 @@ public class LoginController {
 		return "update_check";
 	}
 	
-	@GetMapping("landing/update_check_mail")
+	@GetMapping("update_check_mail")
 	public String updateCheckMail(Model model) { 
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
@@ -198,7 +137,7 @@ public class LoginController {
 		return "update_check";
 	}
 	
-	@GetMapping("landing/update_check_pass")
+	@GetMapping("update_check_pass")
 	public String updateCheckPass(Model model) { 
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
@@ -208,7 +147,7 @@ public class LoginController {
 	}
 	
 	
-	@PostMapping("landing/update") 
+	@PostMapping("update") 
 	public String updateResName(
 			Model model,
 			@Valid @ModelAttribute UpdateForm updateForm, 
@@ -266,7 +205,7 @@ public class LoginController {
 			}
 		}
 	}
-	@GetMapping("landing/delete")
+	@GetMapping("delete")
 	public String delete(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
@@ -274,7 +213,7 @@ public class LoginController {
 		model.addAttribute("form", user);
 		return "delete";
 	}
-	@GetMapping("landing/shopping")
+	@GetMapping("shopping")
 	public String shopping(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
@@ -282,16 +221,16 @@ public class LoginController {
 		model.addAttribute("form", user);
 		return "shopping";
 	}
-	@GetMapping("landing/twitter")
-	public String twitter(Model model) { 
-		List<PlayersInfo> list = playerService.allSearch();
-		model.addAttribute("resultList", list);
-		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
-		model.addAttribute("form", user);
-		return "twitter";
-	}
+//	@GetMapping("landing/twitter")
+//	public String twitter(Model model) { 
+//		List<PlayersInfo> list = playerService.allSearch();
+//		model.addAttribute("resultList", list);
+//		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+//		model.addAttribute("form", user);
+//		return "twitter";
+//	}
 	
-	@GetMapping("landing/part_search_result_name")
+	@GetMapping("part_search_result_name")
 	public String nameSearchResult(
 			Model model,
 			@Valid @ModelAttribute PartSearchForm partSearchForm, 
@@ -328,7 +267,7 @@ public class LoginController {
 			}
 		}
 	}
-	@GetMapping("landing/part_search_result_num")
+	@GetMapping("part_search_result_num")
 	public String uniSearchResult(
 			Model model,
 			@Valid @ModelAttribute PartSearchForm partSearchForm, 
@@ -354,8 +293,5 @@ public class LoginController {
 			}
 		}
 	}
-	
-	
-	
 
 }

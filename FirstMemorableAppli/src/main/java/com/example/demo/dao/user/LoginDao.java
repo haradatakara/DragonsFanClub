@@ -1,8 +1,8 @@
-package com.example.demo.dao;
+package com.example.demo.dao.user;
 
 import java.util.List;
 
-import com.example.demo.entity.UserInfo;
+import com.example.demo.entity.user.UserInfo;
 
 public interface LoginDao {
 	void update(UserInfo usersInfo);
