@@ -92,12 +92,11 @@ public class TweetDaoImpl implements TweetDao {
 	
 	public List<Tweet> SearchPushLike(int userId) {
 		List<Tweet> tweets = new ArrayList<>();
-		String sql = "SELECT comment_id, user_id FROM like_table WHERE user_id = ?";
+		String sql = "SELECT comment_id FROM like_table WHERE user_id = ?";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
 		for(Map<String, Object> r: list) {
 			Tweet t = new Tweet();
-			t.setUserId((int) r.get("user_id"));
-			t.setCommentId((int) r.get("comment_id"));
+			t.setLikeId((int) r.get("comment_id"));
 			tweets.add(t);
 		}
 		return tweets;

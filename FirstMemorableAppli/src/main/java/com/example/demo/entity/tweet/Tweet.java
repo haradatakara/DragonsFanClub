@@ -16,5 +16,7 @@ public class Tweet {
 	private int userId;
 	private String userImg;
 	private Long likeNum;
-	private int commentId;
+	private int likeId;
+	private int[] likeIdArray;
+	private boolean isLiked;
 }

@@ -27,10 +27,10 @@
 		<div class="container">
 			<div class="twitter__contents scroll">
 				<!-- 記事エリア -->
-				<th:block th:each="l : ${list}">
+				<th:block th:each=" l :${list} ">
 					<div class="twitter__block" style="padding: 20px;" >
 						<figure>
-							<img th:src="*{l.getUserImg()}">
+						    <img th:src="*{l.getUserImg()}">
 						</figure>
 						<div class="twitter__block-text">
 							<div class="name" th:text="${name}">
@@ -42,7 +42,14 @@
 							</div>
 							<div class="twitter__icon">
 							   <form th:action="@{/baseball/landing/twitter/like_count/{commentId}(commentId= *{l.getTweetId()}) }" method="POST">
-									<button class="twitter-heart" type="submit" style="border: none; outline: none;"></button>  
+							        <th:block th:if="${l.isLiked()}">
+							             <button class="twitter-heart blue" type="submit" style="border: none; outline: none;"></button> 
+							        </th:block>
+							        <th:block th:unless="${l.isLiked()}">
+							             <button class="twitter-heart gry" type="submit" style="border: none; outline: none;"></button> 
+							        </th:block>
+									<!-- <button th:classappend="${like.getLikeId() == l.getTweetId()} ? blue: ''" class="twitter-heart" type="submit" style="border: none; outline: none;"></button>  
+									<button class="twitter-heart gry" type="submit" style="border: none; outline: none;"></button>  -->
 									<p th:text="*{l.getTweetId()}" style="display: none;" ></p>
 									<input class="like-num" name="likeNum" th:value="*{l.getLikeNum()}" readonly>
 								</form>

@@ -168,7 +168,31 @@ a:hover {
 }
 
 .twitter__container .twitter__icon .twitter-heart {
-   width: 16px;
+  width: 16px;
+  height: 16px; 
+  display: block; 
+  padding-left: 20px; 
+  background: url("/img/twitter/heart_gry.jpeg") left no-repeat; 
+  width: 20%;
+  float: left; 
+ display: none;
+ /*  color: #8a9aa4; */
+  cursor: pointer; 
+}
+.twitter__container .twitter__icon .twitter-heart.gry {
+  width: 16px;
+  height: 16px; 
+  display: block; 
+  padding-left: 20px; 
+  background: url("/img/twitter/heart_gry.jpeg") left no-repeat;
+  width: 20%;
+  float: left; 
+ /*  display: none; */
+ /*  color: #8a9aa4; */
+  cursor: pointer; 
+}
+.twitter__container .twitter__icon .twitter-heart.gry.active {
+  width: 16px;
   height: 16px; 
   display: block; 
   padding-left: 20px; 
@@ -178,8 +202,28 @@ a:hover {
  /*  color: #8a9aa4; */
   cursor: pointer; 
 }
-.twitter__container .twitter__icon .twitter-heart.clicked {
-  background: url("/img/twitter/heart_blue.jpeg") ;
+.twitter__container .twitter__icon .twitter-heart.blue {
+  width: 16px;
+  height: 16px; 
+  display: block; 
+  padding-left: 20px; 
+  background: url("/img/twitter/heart_blue.jpeg") left no-repeat;
+  width: 20%;
+  float: left;
+  /* display: none;  */
+ /*  color: #8a9aa4; */
+  cursor: pointer; 
+}
+.twitter__container .twitter__icon .twitter-heart.blue.active {
+  width: 16px;
+  height: 16px; 
+  display: block; 
+  padding-left: 20px; 
+  background: url("/img/twitter/heart_blue.jpeg") left no-repeat;
+  width: 20%;
+  float: left; 
+ /*  color: #8a9aa4; */
+  cursor: pointer; 
 }
 
 .container {

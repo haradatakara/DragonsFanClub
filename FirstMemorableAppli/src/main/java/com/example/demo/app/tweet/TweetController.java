@@ -41,17 +41,24 @@ public class TweetController {
 	public String getTwitter(Model model) { 
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		List<Tweet> list = tweetService.displayTweet();
+		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
+		for(Tweet t: list) {
+			t.setLiked(false);
+			for(Tweet l: likes) {
+				if(t.getTweetId() == l.getLikeId()) {
+					t.setLiked(true);
+				}
+			}			
+		}
 		model.addAttribute("list", list);
+		//自分がいいねしたコメント(likes.getLikeId())とlistの中のコメント(list.getTweetId())が一致していればblueheartに変更する。出なければgryheartに
+		
 		model.addAttribute("name", user.getUser_name());
 		model.addAttribute("mail", user.getMailaddress());
 		model.addAttribute("form", user);
-		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
-		System.out.println(likes);
-		for(Tweet l: likes) {
-			System.out.println(l.getCommentId());
-		}
 		return "twitter";
 	}
+	
 //	@PostMapping({""})
 //	public String postTwitter(Model model) { 
 //		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
@@ -81,9 +88,20 @@ public class TweetController {
 			tweet.setUserId((int)session.getAttribute("id"));
             tweet.setUserImg("/img/players/img01.jpg");
             boolean isInsert = tweetService.InsertTweet(tweet);
+            List<Tweet> like = tweetService.SearchPushLike((int) session.getAttribute("id"));
+    		model.addAttribute("likes", like);
             if(isInsert) {
             	model.addAttribute("success", true);
             	List<Tweet> list = tweetService.displayTweet();
+            	List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
+        		for(Tweet t: list) {
+        			t.setLiked(false);
+        			for(Tweet l: likes) {
+        				if(t.getTweetId() == l.getLikeId()) {
+        					t.setLiked(true);
+        				}
+        			}			
+        		}
         		model.addAttribute("list", list);
         		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
         		model.addAttribute("name", user.getUser_name());
@@ -99,11 +117,21 @@ public class TweetController {
 	@GetMapping("tweet_complete")
 	public String getComTwitter(Model model) {
 		List<Tweet> list = tweetService.displayTweet();
-		model.addAttribute("list", list);
 		model.addAttribute("name", session.getAttribute("username"));
 		model.addAttribute("mail", session.getAttribute("mailaddress"));
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
+		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
+		for(Tweet t: list) {
+			t.setLiked(false);
+			for(Tweet l: likes) {
+				if(t.getTweetId() == l.getLikeId()) {
+					t.setLiked(true);
+				}
+			}			
+		}
+		model.addAttribute("list", list);
+		
 		return "twitter";
 	}
 	@GetMapping("like_count/{commentId}")
@@ -112,6 +140,15 @@ public class TweetController {
 			@PathVariable("commentId") int commentId
 			) {
 		List<Tweet> list = tweetService.displayTweet();
+		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
+		for(Tweet t: list) {
+			t.setLiked(false);
+			for(Tweet l: likes) {
+				if(t.getTweetId() == l.getLikeId()) {
+					t.setLiked(true);
+				}
+			}			
+		}
 		model.addAttribute("list", list);
 		model.addAttribute("name", session.getAttribute("username"));
 		model.addAttribute("mail", session.getAttribute("mailaddress"));
@@ -128,6 +165,15 @@ public class TweetController {
 		int userId = (int)session.getAttribute("id");
 		boolean isUnique = tweetService.CountLike(userId, commentId);
 		List<Tweet> list1 = tweetService.displayTweet();
+		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
+		for(Tweet t: list1) {
+			t.setLiked(false);
+			for(Tweet l: likes) {
+				if(t.getTweetId() == l.getLikeId()) {
+					t.setLiked(true);
+				}
+			}			
+		}
 		model.addAttribute("list", list1);
 	    model.addAttribute("name", session.getAttribute("username"));
 	    model.addAttribute("mail", session.getAttribute("mailaddress"));
@@ -136,9 +182,16 @@ public class TweetController {
 		model.addAttribute("form", user);
 		if(isUnique == false) {
 			 boolean isDelete = tweetService.DeleteLike(userId, commentId);
-			 System.out.println(isDelete + "12");
 			 List<Tweet> list2 = tweetService.displayTweet();
-			 System.out.println(list2.get(1).getLikeNum());
+			 List<Tweet> like = tweetService.SearchPushLike((int) session.getAttribute("id"));
+				for(Tweet t: list2) {
+					t.setLiked(false);
+					for(Tweet l: like) {
+						if(t.getTweetId() == l.getLikeId()) {
+							t.setLiked(true);
+						}
+					}			
+				}
 			 model.addAttribute("list", list2);
 			 model.addAttribute("image", "url(/img/twitter/heart_blue.jpeg) left no-repeat");
 			 return "twitter";
