@@ -7,6 +7,7 @@ html {
 
 body {
 	padding-top: -5rem;
+	height: 100vh;
 }
 
 
@@ -35,12 +36,6 @@ a {
 	padding: 0 10%;
 }
 
-.mainvisual {
-	height: 90vh;
-	max-width: 100%;
-	width: 100%;
-}
-
 .input-error {
 	color: red;
 	font-weight: bold;
@@ -57,8 +52,8 @@ a:hover {
   padding: 0;
   background: #ffffff;
   overflow: hidden;
-  max-width: 1200px;
-  margin: 20px auto;
+  /*  max-width: 1200px; */
+  margin: 0px auto 20px;
   font-size: 80%;
 }
 
@@ -95,7 +90,7 @@ a:hover {
 }
 
 .twitter__container .twitter__contents.scroll {
-  height: 500px;
+  height: 620px; 
   overflow-y: scroll;
 }
 
@@ -172,37 +167,19 @@ a:hover {
   display: none;
 }
 
-.twitter__container .twitter__icon .twitter-bubble {
-  width: 14px;
-  height: 14px;
-  display: block;
-  padding-left: 20px;
-  background: url("/img/svg/twitter-bubble.svg") left no-repeat;
-  width: 20%;
-  float: left;
-  color: #8a9aa4;
-}
-
 .twitter__container .twitter__icon .twitter-heart {
-  width: 14px;
-  height: 14px;
-  display: block;
-  padding-left: 20px;
-  background: url("/img/svg/twitter-heart.svg") left no-repeat;
+   width: 16px;
+  height: 16px; 
+  display: block; 
+  padding-left: 20px; 
+  background: url("/img/twitter/heart_gry.jpeg") left no-repeat;
   width: 20%;
-  float: left;
-  color: #8a9aa4;
+  float: left; 
+ /*  color: #8a9aa4; */
+  cursor: pointer; 
 }
-
-.twitter__container .twitter__icon .twitter-loop {
-  width: 14px;
-  height: 14px;
-  display: block;
-  padding-left: 20px;
-  background: url("/img/svg/twitter-loop.svg") left no-repeat;
-  width: 20%;
-  float: left;
-  color: #8a9aa4;
+.twitter__container .twitter__icon .twitter-heart.clicked {
+  background: url("/img/twitter/heart_blue.jpeg") ;
 }
 
 .container {
@@ -223,6 +200,9 @@ textarea {
 }
 
 .footer {
-	margin-top: 150px;
 	text-align: center;
+}
+
+.twitter__contents {
+	width: 70%;
 }

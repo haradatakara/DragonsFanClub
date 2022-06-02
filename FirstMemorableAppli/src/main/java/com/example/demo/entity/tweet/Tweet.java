@@ -15,4 +15,6 @@ public class Tweet {
 	private LocalDateTime created;
 	private int userId;
 	private String userImg;
+	private Long likeNum;
+	private int commentId;
 }

@@ -84,8 +84,6 @@ public class LoginedController {
 		return "landing";
 	}
 	
-	
-	
 	@GetMapping("all_search")
 	public String allSearch(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
@@ -164,7 +162,8 @@ public class LoginedController {
 			
 			if(updateForm.getSecTitle().equals("Name")) {
 				if(!updateForm.getName().equals("")) {
-					isUpdate = loginService.updateResultName(updateForm.getName(), sessionId);							
+					isUpdate = loginService.updateResultName(updateForm.getName(), sessionId);
+					session.setAttribute("username", updateForm.getName());
 				} else {
 					model.addAttribute("error", "値を入力してください");
 					model.addAttribute("secTitle", "Name");
@@ -175,6 +174,7 @@ public class LoginedController {
 				//メールアドレスがユニークかどうか判定
 				if(loginService.checkUnique(updateForm.getMail_address())) {
 					isUpdate = loginService.updateResultMail(updateForm.getMail_address(), sessionId);
+					session.setAttribute("mailaddress", updateForm.getMail_address());
 				} else {
 					model.addAttribute("error", "そのメールアドレスは、すでに登録済みです。");
 					model.addAttribute("secTitle", "MailAddress");
@@ -184,7 +184,8 @@ public class LoginedController {
 			} else {
 				isUpdate = loginService.updateResultPass(updateForm.getPassword(), sessionId);
 				if(!updateForm.getPassword().equals("")) {
-					isUpdate = loginService.updateResultPass(updateForm.getPassword(), sessionId);							
+					isUpdate = loginService.updateResultPass(updateForm.getPassword(), sessionId);
+					session.setAttribute("password", updateForm.getPassword());
 				} else {
 					model.addAttribute("error", "値を入力してください");
 					model.addAttribute("secTitle", "Password");
