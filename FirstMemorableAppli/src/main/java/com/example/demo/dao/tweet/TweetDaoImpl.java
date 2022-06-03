@@ -33,9 +33,9 @@ public class TweetDaoImpl implements TweetDao {
 	@Override
 	public List<Tweet> displayTweet() {
 		String sql 
-		   = "select tt.comment_id, count(lt.like_id) countnum, comment, created, user_img, tt.user_id "
+		   = "select tt.comment_id, count(lt.like_id) countnum, comment, tt.created, user_img, tt.user_id, ui.user_name, ui.mailaddress "
 		   		+ "from tweet_table tt "
-		   		+ "left outer join like_table lt on tt.comment_id = lt.comment_id group by tt.comment_id";
+		   		+ "left outer join like_table lt on tt.comment_id = lt.comment_id left outer join usersInfo ui on ui.user_id = tt.user_id group by tt.comment_id order by tt.created desc";
 		
 		List<Tweet> tweets = new ArrayList<>();
 		List<Map<String, Object>> res = jdbcTemplate.queryForList(sql);
@@ -48,6 +48,8 @@ public class TweetDaoImpl implements TweetDao {
 			t.setTweetId((int) r.get("comment_id"));
 			t.setUserImg((String) r.get("user_img"));
 			t.setLikeNum((Long) r.get("countnum"));
+			t.setUsername((String) r.get("user_name"));
+		    t.setMailaddress((String) r.get("mailaddress"));
 			tweets.add(t);
 		}
 		

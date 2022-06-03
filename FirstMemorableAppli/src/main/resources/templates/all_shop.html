@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>ALL_SEARCH</title>
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+<link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
+	rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="starter-template.css" th:href="@{/css/starter-template.css}"
+	rel="stylesheet">
+</head>
+<body style="background-color: #eee;">
+	<div th:replace="navi :: nav"></div>
+	<main class="container-fluid">
+		<h1 class="sec-title">SHOPS</h1>
+		<div class="card-container">
+		  <th:block class="card-inner" th:each="l : ${resultList}">
+			<button class="card card1 player-photo"
+				th:onclick="location.href='/baseball/landing/part_shop'"
+				style="display: block; flex-direction: initial; border-radius: 5%;">
+				<img th:src="|${l.getShop_img()}/img1.jpg|" class="card-img-top" style="border-radius: 5%;" />
+				<div class="card-body">
+					<h5 class="card-title" th:text="*{l.getShop_name()}">NYUYOAKJO</h5>
+					<p class="card-text" style="color: black;" th:text="*{l.getAddress()}">吉祥寺</p>
+				</div>
+			</button>
+		   </th:block>
+		</div>
+	</main>
+
+	<footer>
+		<p class="footer">&copy;Takara.H</p>
+	</footer>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

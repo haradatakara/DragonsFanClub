@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>PART_SEARCH_RESULT</title>
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<link href="/css/style.css" th:href="@{/css/partSearchResult.css}"
+	rel="stylesheet">
+<link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
+	rel="stylesheet">
+<link href="starter-template.css" th:href="@{/css/starter-template.css}"
+	rel="stylesheet">
+</head>
+<body style="background-color: #eee;">
+	<div th:replace="navi :: nav"></div>
+	<main class="container-fluid">
+		<h1 class="sec-title">SHOP DEATILS</h1>
+		<div id="carouselExampleFade" class="carousel slide carousel-fade"
+			data-bs-ride="carousel" style="max-width: 800px; margin: 0 auto;">
+			<div class="carousel-inner mainvisual">
+				<div class="carousel-item active">
+					<img style="border-radius: 100px;" src="/img/img1.jpg"
+						class="d-block w-100" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img style="border-radius: 100px;" src="/img/img2.jpg"
+						class="d-block w-100" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img style="border-radius: 100px;" src="/img/img3.jpg"
+						class="d-block w-100" alt="...">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button"
+				data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button"
+				data-bs-target="#carouselExampleFade" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+		<div class="shop-deatils" style="max-width: 800px; margin: 30px auto;">
+			<h2>NYUYAAKJO</h2>
+			<p>ニューヨークジョー</p>
+			<p>吉祥寺</p>
+			<p class="description">
+			    NEW YORK JOE<br>
+				EXCHANGEは、新しいスタイルのリサイクルショップです。<br>
+				不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。<br>
+				買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。 NEW YORK JOE<br>
+				EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。<br>
+				ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。<br>
+				また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。
+			</p>
+			<table>
+			<tr>
+			 <td>TEL</td>
+			 <td>08034440202</td>
+			</tr>
+			<tr>
+			 <td>ADDRESS</td>
+			 <td>URL</td>
+			</tr>
+			</table>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.0197661124466!2d139.5783145!3d35.701131200000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018ee37ee1db4ad%3A0xfba6f2e9d85af040!2z77yu77yl77y377y577yv77yy77yr77yq77yv77yl77yl77y477yj77yo77yh77yu77yn77yl!5e0!3m2!1sja!2sjp!4v1654223550725!5m2!1sja!2sjp" width="800" height="400" style="border:0; margin-top: 30px; filter: grayscale(100%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+		</div>
+	</main>
+
+	<footer>
+		<p class="footer">&copy;Takara.H</p>
+	</footer>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,23 +53,14 @@ public class TweetController {
 		}
 		model.addAttribute("list", list);
 		//自分がいいねしたコメント(likes.getLikeId())とlistの中のコメント(list.getTweetId())が一致していればblueheartに変更する。出なければgryheartに
-		
 		model.addAttribute("name", user.getUser_name());
 		model.addAttribute("mail", user.getMailaddress());
+		model.addAttribute("image", "/img/players/img01.jpg");
 		model.addAttribute("form", user);
 		return "twitter";
 	}
 	
-//	@PostMapping({""})
-//	public String postTwitter(Model model) { 
-//		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
-//		List<Tweet> list = tweetService.displayTweet();
-//		model.addAttribute("list", list);
-//		model.addAttribute("name", user.getUser_name());
-//		model.addAttribute("mail", user.getMailaddress());
-//		model.addAttribute("form", user);
-//		return "twitter";
-//	}
+	
 	
 	@PostMapping("tweet_complete")
 	public String twitter(
@@ -107,18 +99,15 @@ public class TweetController {
         		model.addAttribute("name", user.getUser_name());
         		model.addAttribute("mail", user.getMailaddress());
         		model.addAttribute("form", user);
-            	return "twitter";
+            	return "redirect:/baseball/landing/twitter";
             } else {
             }
-//			UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
             return "twitter";
 		}
 	}
 	@GetMapping("tweet_complete")
 	public String getComTwitter(Model model) {
 		List<Tweet> list = tweetService.displayTweet();
-		model.addAttribute("name", session.getAttribute("username"));
-		model.addAttribute("mail", session.getAttribute("mailaddress"));
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
 		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
@@ -134,6 +123,9 @@ public class TweetController {
 		
 		return "twitter";
 	}
+	
+	
+	
 	@GetMapping("like_count/{commentId}")
 	public String getcountLike(
 			Model model, 
@@ -150,11 +142,52 @@ public class TweetController {
 			}			
 		}
 		model.addAttribute("list", list);
-		model.addAttribute("name", session.getAttribute("username"));
-		model.addAttribute("mail", session.getAttribute("mailaddress"));
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
 		return "twitter";
+	}
+	
+	@PostMapping("like")
+	public String likeCount(
+			Model model,
+			@ModelAttribute @Validated LikeForm likeForm,
+			BindingResult result
+			) {
+		int userId = (int)session.getAttribute("id");
+		//すでにいいねしてないか判定
+		boolean isUnique = tweetService.CountLike(userId, likeForm.getTweetId());
+		//ツイート全件取得
+		List<Tweet> list = tweetService.displayTweet();
+		//ログインユーザーがいいねしたコメントの一覧を取得しbooleanでlistに表現
+		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
+		if(isUnique == false) {
+			 boolean isDelete = tweetService.DeleteLike(userId, likeForm.getTweetId());
+			 List<Tweet> list2 = tweetService.displayTweet();
+			 List<Tweet> like = tweetService.SearchPushLike((int) session.getAttribute("id"));
+			 for(Tweet t: list2) {
+					t.setLiked(false);
+					for(Tweet l: like) {
+						if(t.getTweetId() == l.getLikeId()) {
+							t.setLiked(true);
+						}
+					}			
+			}
+			 model.addAttribute("list", list2);
+			 return "twitter";
+		} else {
+			for(Tweet t: list) {
+				t.setLiked(false);
+				for(Tweet l: likes) {
+					if(t.getTweetId() == l.getLikeId()) {
+						t.setLiked(true);
+					}
+				}			
+			}
+			model.addAttribute("list", list);
+		}
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
+		return "redirect:/baseball/landing/twitter";
 	}
 
 	@PostMapping("like_count/{commentId}")
@@ -163,40 +196,40 @@ public class TweetController {
 			@PathVariable("commentId") int commentId
 			) {
 		int userId = (int)session.getAttribute("id");
+		//すでにいいねしてないか判定
 		boolean isUnique = tweetService.CountLike(userId, commentId);
-		List<Tweet> list1 = tweetService.displayTweet();
+		//ツイート全件取得
+		List<Tweet> list = tweetService.displayTweet();
+		//ログインユーザーがいいねしたコメントの一覧を取得しbooleanでlistに表現
 		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
-		for(Tweet t: list1) {
-			t.setLiked(false);
-			for(Tweet l: likes) {
-				if(t.getTweetId() == l.getLikeId()) {
-					t.setLiked(true);
-				}
-			}			
-		}
-		model.addAttribute("list", list1);
-	    model.addAttribute("name", session.getAttribute("username"));
-	    model.addAttribute("mail", session.getAttribute("mailaddress"));
-	    model.addAttribute("image", "url(/img/twitter/heart_blue.jpeg) left no-repeat");
-	    UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
-		model.addAttribute("form", user);
 		if(isUnique == false) {
 			 boolean isDelete = tweetService.DeleteLike(userId, commentId);
 			 List<Tweet> list2 = tweetService.displayTweet();
 			 List<Tweet> like = tweetService.SearchPushLike((int) session.getAttribute("id"));
-				for(Tweet t: list2) {
+			 for(Tweet t: list2) {
 					t.setLiked(false);
 					for(Tweet l: like) {
 						if(t.getTweetId() == l.getLikeId()) {
 							t.setLiked(true);
 						}
 					}			
-				}
+			}
 			 model.addAttribute("list", list2);
-			 model.addAttribute("image", "url(/img/twitter/heart_blue.jpeg) left no-repeat");
-			 return "twitter";
-		} 
-		return "twitter";
+			 return "redirect:/baseball/landing/twitter";
+		} else {
+			for(Tweet t: list) {
+				t.setLiked(false);
+				for(Tweet l: likes) {
+					if(t.getTweetId() == l.getLikeId()) {
+						t.setLiked(true);
+					}
+				}			
+			}
+			model.addAttribute("list", list);
+		}
+		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+		model.addAttribute("form", user);
+		return "redirect:/baseball/landing/twitter";
 	}
 
 }

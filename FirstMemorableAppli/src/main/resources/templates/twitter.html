@@ -30,10 +30,10 @@
 				<th:block th:each=" l :${list} ">
 					<div class="twitter__block" style="padding: 20px;" >
 						<figure>
-						    <img th:src="*{l.getUserImg()}">
+						    <img class="user-image" th:src="*{l.getUserImg()}">
 						</figure>
 						<div class="twitter__block-text">
-							<div class="name" th:text="${name}">
+							<div class="name" th:text="*{l.getUsername()}">
 								うさきち<span class="name_reply" th:text="${mail}">@usa_tan</span>
 							</div>
 							<div class="date" th:text="*{l.getCreated()}">1時間前</div>
@@ -41,16 +41,15 @@
 								<div th:text="*{l.getComment()}"></div>
 							</div>
 							<div class="twitter__icon">
-							   <form th:action="@{/baseball/landing/twitter/like_count/{commentId}(commentId= *{l.getTweetId()}) }" method="POST">
+							 <form th:action="@{/baseball/landing/twitter/like_count/{commentId}(commentId= *{l.getTweetId()}) }" method="POST"> 
+							  <!--  <form th:action="@{/baseball/landing/twitter/like}" method="POST"> --> 
 							        <th:block th:if="${l.isLiked()}">
 							             <button class="twitter-heart blue" type="submit" style="border: none; outline: none;"></button> 
 							        </th:block>
 							        <th:block th:unless="${l.isLiked()}">
 							             <button class="twitter-heart gry" type="submit" style="border: none; outline: none;"></button> 
 							        </th:block>
-									<!-- <button th:classappend="${like.getLikeId() == l.getTweetId()} ? blue: ''" class="twitter-heart" type="submit" style="border: none; outline: none;"></button>  
-									<button class="twitter-heart gry" type="submit" style="border: none; outline: none;"></button>  -->
-									<p th:text="*{l.getTweetId()}" style="display: none;" ></p>
+									<input class="tweet-id" name="tweetId" th:value="*{l.getTweetId()}" style="display: none;"  readonly="readonly">
 									<input class="like-num" name="likeNum" th:value="*{l.getLikeNum()}" readonly>
 								</form>
 							</div>
@@ -66,7 +65,15 @@
 			       <th:block th:if="${success}">
 			         <div class="alert alert-success" role="alert">SUCCESS!!</div>
 			       </th:block>
-			       <textarea rows="10" cols="40" name="comment"></textarea>
+			       <div class="user-container">
+			       <figure>
+						<img class="user-image" th:src="${image}">
+					</figure>
+			       <div class="name" th:text="*{name}">
+								うさきち<span class="name_reply" th:text="${mail}">@usa_tan</span>
+							</div>
+			       </div>
+			       <textarea rows="10" cols="40" th:value="${text}" name="comment"></textarea>
 			        <button type="submit" class="btn btn-success" style="display: block; margin-left: 225px;">Tweet</button>
 			 </form> 
 			</div>

@@ -124,7 +124,7 @@ a:hover {
 }
 
 .player-photo {
-	width: 23%;
+	width: 30%;
 	margin: 10px 1%; 
 	padding:2%;
 }
@@ -142,7 +142,6 @@ a:hover {
 .card-body .card-text {
 	color: blue;
 	font-size: 2rem;
-	
 }
 
 .card-img-top {

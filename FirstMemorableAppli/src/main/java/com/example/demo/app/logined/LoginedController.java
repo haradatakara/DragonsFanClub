@@ -19,26 +19,27 @@ import com.example.demo.app.players.PartSearchForm;
 import com.example.demo.app.update.UpdateForm;
 import com.example.demo.app.user.SignInForm;
 import com.example.demo.entity.players.PlayersInfo;
+import com.example.demo.entity.search.Shop;
 import com.example.demo.entity.user.UserInfo;
 import com.example.demo.service.players.PlayerService;
-import com.example.demo.service.tweet.TweetService;
+import com.example.demo.service.search.SearchService;
 import com.example.demo.service.user.LoginService;
 
 @Controller
 @RequestMapping("/baseball/landing")
 public class LoginedController {
-	
-	private final TweetService tweetService;
+
 	private final LoginService loginService;
 	private final PlayerService playerService;
+	private final SearchService searchService;
 	@Autowired
 	HttpSession session;
 	
 	@Autowired
-	public LoginedController(TweetService tweetService, LoginService loginService, PlayerService playerService) {
+	public LoginedController(LoginService loginService, PlayerService playerService,SearchService searchService) {
 		this.loginService = loginService;
-		this.tweetService = tweetService;
 		this.playerService = playerService;
+		this.searchService = searchService;
 	}
 	@PostMapping
 	public String isSignIn(
@@ -84,23 +85,40 @@ public class LoginedController {
 		return "landing";
 	}
 	
-	@GetMapping("all_search")
-	public String allSearch(Model model) { 
-		List<PlayersInfo> list = playerService.allSearch();
+	@GetMapping("all_shop")
+	public String SearcShops(Model model) { 
+		List<Shop> list = searchService.serachAllShop();
 		model.addAttribute("resultList", list);
-		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
-		model.addAttribute("form", user);
-		return "all_search";
+		model.addAttribute("form", loginService.fetchUserInfoId((int)session.getAttribute("id")));
+		return "all_shop";
 	}
 	
-	@GetMapping("part_search")
-	public String partSearch(Model model) { 
+	@GetMapping("part_shop")
+	public String SearcPartShops(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();
 		model.addAttribute("resultList", list);
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
-		return "part_search";
+		return "part_shop";
 	}
+	
+//	@GetMapping("all_search")
+//	public String allSearch(Model model) { 
+//		List<PlayersInfo> list = playerService.allSearch();
+//		model.addAttribute("resultList", list);
+//		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+//		model.addAttribute("form", user);
+//		return "all_search";
+//	}
+//	
+//	@GetMapping("part_search")
+//	public String partSearch(Model model) { 
+//		List<PlayersInfo> list = playerService.allSearch();
+//		model.addAttribute("resultList", list);
+//		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
+//		model.addAttribute("form", user);
+//		return "part_search";
+//	}
 	@GetMapping("insert")
 	public String insert(Model model) { 
 		List<PlayersInfo> list = playerService.allSearch();

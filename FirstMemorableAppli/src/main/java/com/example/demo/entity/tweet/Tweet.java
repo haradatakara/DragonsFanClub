@@ -17,6 +17,7 @@ public class Tweet {
 	private String userImg;
 	private Long likeNum;
 	private int likeId;
-	private int[] likeIdArray;
 	private boolean isLiked;
+	private String username;
+	private String mailaddress;
 }
