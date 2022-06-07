@@ -10,7 +10,7 @@
 <title>ALL_SEARCH</title>
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-<link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+<link href="/css/style.css" th:href="@{/css/allSearch.css}" rel="stylesheet">
 <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
 	rel="stylesheet">
 <!-- Custom styles for this template -->
@@ -19,19 +19,20 @@
 </head>
 <body style="background-color: #eee;">
 	<div th:replace="navi :: nav"></div>
-	<main class="container-fluid">
+	<main class="main-fluid">
 		<h1 class="sec-title">SHOPS</h1>
 		<div class="card-container">
-		  <th:block class="card-inner" th:each="l : ${resultList}">
-			<button class="card card1 player-photo"
-				th:onclick="location.href='/baseball/landing/part_shop'"
-				style="display: block; flex-direction: initial; border-radius: 5%;">
-				<img th:src="|${l.getShop_img()}/img1.jpg|" class="card-img-top" style="border-radius: 5%;" />
+		  <th:block th:each="l : ${resultList}" class="card-container">
+		  <form th:action="@{/mystyle/landing/part_shop/{shop_id} (shop_id=*{l.getShop_id()})}">
+			<button type="submit" class="card card1 shop-photo"
+				style="display: block; flex-direction: initial; border-radius: 5%; height: 400px;">
+				<img th:src="|${l.getShop_img()}/img1.jpg|" class="card-img-top" style="border-radius: 5%; height: 200px;" />
 				<div class="card-body">
 					<h5 class="card-title" th:text="*{l.getShop_name()}">NYUYOAKJO</h5>
 					<p class="card-text" style="color: black;" th:text="*{l.getAddress()}">吉祥寺</p>
 				</div>
 			</button>
+		  </form>
 		   </th:block>
 		</div>
 	</main>

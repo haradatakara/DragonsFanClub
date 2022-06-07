@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.app.user.SignInForm;
 import com.example.demo.entity.tweet.Tweet;
 import com.example.demo.entity.user.UserInfo;
 import com.example.demo.service.tweet.TweetService;
 import com.example.demo.service.user.LoginService;
 
 @Controller
-@RequestMapping("/baseball/landing/twitter")
+@RequestMapping("/mystyle/landing/twitter")
 public class TweetController {
 	
 	private final TweetService tweetService;
@@ -39,24 +40,33 @@ public class TweetController {
 	
 	@GetMapping
 	@PostMapping
-	public String getTwitter(Model model) { 
-		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
-		List<Tweet> list = tweetService.displayTweet();
-		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
-		for(Tweet t: list) {
-			t.setLiked(false);
-			for(Tweet l: likes) {
-				if(t.getTweetId() == l.getLikeId()) {
-					t.setLiked(true);
-				}
-			}			
-		}
-		model.addAttribute("list", list);
-		//自分がいいねしたコメント(likes.getLikeId())とlistの中のコメント(list.getTweetId())が一致していればblueheartに変更する。出なければgryheartに
-		model.addAttribute("name", user.getUser_name());
-		model.addAttribute("mail", user.getMailaddress());
-		model.addAttribute("image", "/img/players/img01.jpg");
-		model.addAttribute("form", user);
+	public String getTwitter(Model model, SignInForm signInForm) { 
+		try {
+			if((Integer) session.getAttribute("id") == null) {
+				model.addAttribute("notlogin", "ツイート機能を利用するには、ログインをおこなってください");
+				model.addAttribute("signInForm", signInForm);
+				return "signIn";
+			}
+			UserInfo user = loginService.fetchUserInfoId((int) session.getAttribute("id"));
+			model.addAttribute("form", user);
+			List<Tweet> list = tweetService.displayTweet();
+			List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
+			for(Tweet t: list) {
+				t.setLiked(false);
+				for(Tweet l: likes) {
+					if(t.getTweetId() == l.getLikeId()) {
+						t.setLiked(true);
+					}
+				}			
+			}
+			model.addAttribute("list", list);
+			//自分がいいねしたコメント(likes.getLikeId())とlistの中のコメント(list.getTweetId())が一致していればblueheartに変更する。出なければgryheartに
+			model.addAttribute("name", user.getUser_name());
+			model.addAttribute("mail", user.getMailaddress());
+			model.addAttribute("image", user.getUser_img());
+			model.addAttribute("form", user);
+		} catch (Exception e) {}
+		
 		return "twitter";
 	}
 	
@@ -78,7 +88,7 @@ public class TweetController {
 			tweet.setComment(tweetForm.getComment());
 			tweet.setCreated(LocalDateTime.now());
 			tweet.setUserId((int)session.getAttribute("id"));
-            tweet.setUserImg("/img/players/img01.jpg");
+//            tweet.setUserImg();
             boolean isInsert = tweetService.InsertTweet(tweet);
             List<Tweet> like = tweetService.SearchPushLike((int) session.getAttribute("id"));
     		model.addAttribute("likes", like);
@@ -99,7 +109,7 @@ public class TweetController {
         		model.addAttribute("name", user.getUser_name());
         		model.addAttribute("mail", user.getMailaddress());
         		model.addAttribute("form", user);
-            	return "redirect:/baseball/landing/twitter";
+            	return "redirect:/mystyle/landing/twitter";
             } else {
             }
             return "twitter";
@@ -187,7 +197,7 @@ public class TweetController {
 		}
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
-		return "redirect:/baseball/landing/twitter";
+		return "redirect:/mystyle/landing/twitter";
 	}
 
 	@PostMapping("like_count/{commentId}")
@@ -215,7 +225,7 @@ public class TweetController {
 					}			
 			}
 			 model.addAttribute("list", list2);
-			 return "redirect:/baseball/landing/twitter";
+			 return "redirect:/mystyle/landing/twitter";
 		} else {
 			for(Tweet t: list) {
 				t.setLiked(false);
@@ -229,7 +239,7 @@ public class TweetController {
 		}
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
-		return "redirect:/baseball/landing/twitter";
+		return "redirect:/mystyle/landing/twitter";
 	}
 
 }

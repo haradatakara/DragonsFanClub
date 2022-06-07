@@ -15,4 +15,5 @@ public class Shop {
 	private String shop_img; 
 	private String url;
 	private String description;
+	private String map;
 }

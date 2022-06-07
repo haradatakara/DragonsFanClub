@@ -12,6 +12,7 @@ nav
 	display: block;
 }
 
+
 .age-area select {
 	background: white;
 	border: 1px solid #c3c5c5;
@@ -26,14 +27,6 @@ nav
 	font-size: 1.3rem;
 	font-weight: bold;
 }
-
-.container-fluid {
-	max-width: 1280px;
-	margin: 0 auto;
-	padding: 0 10%;
-} 
-
-
 
 .signInComplete {
 	color: blue	;
@@ -52,6 +45,13 @@ nav
 	display: flex;
 	justify-content: space-between;
 }
+
+.navbar {
+	height: 80px;
+}
+/* img {
+	height: 400px;
+} */
 
 .pro-card {
 	width: 45%;

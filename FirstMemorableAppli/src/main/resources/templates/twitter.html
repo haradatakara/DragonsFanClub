@@ -31,6 +31,7 @@
 					<div class="twitter__block" style="padding: 20px;" >
 						<figure>
 						    <img class="user-image" th:src="*{l.getUserImg()}">
+						  <!--   |/img/user/img${imgId}.jpg| -->
 						</figure>
 						<div class="twitter__block-text">
 							<div class="name" th:text="*{l.getUsername()}">
@@ -41,8 +42,7 @@
 								<div th:text="*{l.getComment()}"></div>
 							</div>
 							<div class="twitter__icon">
-							 <form th:action="@{/baseball/landing/twitter/like_count/{commentId}(commentId= *{l.getTweetId()}) }" method="POST"> 
-							  <!--  <form th:action="@{/baseball/landing/twitter/like}" method="POST"> --> 
+							 <form th:action="@{/mystyle/landing/twitter/like_count/{commentId}(commentId= *{l.getTweetId()}) }" method="POST"> 
 							        <th:block th:if="${l.isLiked()}">
 							             <button class="twitter-heart blue" type="submit" style="border: none; outline: none;"></button> 
 							        </th:block>
@@ -58,7 +58,7 @@
 			    </th:block>
 			</div>
 			<div class="comment__form" style="margin-top: 100px;">
-			 <form th:action="@{/baseball/landing/twitter/tweet_complete}" method="post"> 
+			 <form th:action="@{/mystyle/landing/twitter/tweet_complete}" method="post"> 
 			       <th:block th:if="${error}">
 			         <div class="alert alert-danger" role="alert">正しい値を入力してください</div>
 			       </th:block>
@@ -67,10 +67,11 @@
 			       </th:block>
 			       <div class="user-container">
 			       <figure>
-						<img class="user-image" th:src="${image}">
+						<img class="user-image" th:if="${image}" th:src="${image}">
+					   <!-- |/img/user/img*{l.getUserImg()}.jpg| -->
 					</figure>
-			       <div class="name" th:text="*{name}">
-								うさきち<span class="name_reply" th:text="${mail}">@usa_tan</span>
+			       <div class="name" th:text="*{name}" th:if="${name}">
+								うさきち<span class="name_reply" th:if="${mail}" th:text="${mail}">@usa_tan</span>
 							</div>
 			       </div>
 			       <textarea rows="10" cols="40" th:value="${text}" name="comment"></textarea>

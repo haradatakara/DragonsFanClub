@@ -6,5 +6,7 @@ import com.example.demo.entity.search.Shop;
 
 public interface SearchDao {
 	List<Shop> serachAllShop();
+	
+	Shop searchPartShop(int shopId);
 
 }

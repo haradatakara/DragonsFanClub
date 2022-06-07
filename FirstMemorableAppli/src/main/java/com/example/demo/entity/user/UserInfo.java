@@ -16,4 +16,6 @@ public class UserInfo {
 	private String password;
 	private int age_id;
 	private LocalDateTime datetime;
+	private String user_img;
+//	private int user_img;
 }

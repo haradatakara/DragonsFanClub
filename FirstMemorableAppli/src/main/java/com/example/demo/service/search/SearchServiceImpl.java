@@ -21,4 +21,10 @@ public class SearchServiceImpl implements SearchService {
 		return list;
 	}
 
+	@Override
+	public Shop searchPartShop(int shopId) {
+		Shop s = dao.searchPartShop(shopId);
+		return s;
+	}
+
 }

@@ -31,4 +31,7 @@ public class SignUpForm {
 	    @NotNull(message="入力してください。")
 	    @Size(min = 3, max = 20)
 	    private String repassword;
+	    
+	    @NotNull
+	    private String userImg;
 }

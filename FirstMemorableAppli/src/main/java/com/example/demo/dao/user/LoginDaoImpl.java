@@ -75,7 +75,7 @@ public class LoginDaoImpl implements LoginDao {
 	}
 	
 	public UserInfo fetchUserInfoMail(String mail) {
-		String sql = "SELECT password, mailaddress, user_name, user_id FROM usersInfo where mailaddress = ?";
+		String sql = "SELECT password, mailaddress, user_name, user_id, user_img FROM usersInfo where mailaddress = ?";
 		Map<String, Object> resultMap = jdbcTemplate.queryForMap(sql, mail);
 		UserInfo ui = new UserInfo();
 		
@@ -83,11 +83,14 @@ public class LoginDaoImpl implements LoginDao {
 		ui.setPassword((String) resultMap.get("password"));
 		ui.setUser_name((String) resultMap.get("user_name"));
 		ui.setUser_id((int) resultMap.get("user_id"));
+		ui.setUser_img((String) resultMap.get("user_img"));
+//		ui.setUser_img((int) resultMap.get("user_img"));
+		
 		return ui;
 	}
 	
 	public UserInfo fetchUserInfoId(int id) {
-		String sql = "SELECT password, mailaddress, user_name, user_id FROM usersInfo where user_id = ?";
+		String sql = "SELECT password, mailaddress, user_name, user_id, user_img FROM usersInfo where user_id = ?";
 		Map<String, Object> resultMap = jdbcTemplate.queryForMap(sql, id);
 		UserInfo ui = new UserInfo();
 		
@@ -95,6 +98,8 @@ public class LoginDaoImpl implements LoginDao {
 		ui.setPassword((String) resultMap.get("password"));
 		ui.setUser_name((String) resultMap.get("user_name"));
 		ui.setUser_id((int) resultMap.get("user_id"));
+		ui.setUser_img((String) resultMap.get("user_img"));
+		
 		return ui;
 	}
 	public List<UserInfo> checkUnique() {
@@ -115,9 +120,9 @@ public class LoginDaoImpl implements LoginDao {
 
 	@Override
 	public void signUp(UserInfo usersInfo) {
-		String sql = "INSERT INTO usersInfo(user_name, mailaddress, password, age_id, created) VALUES(?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO usersInfo(user_name, mailaddress, password, age_id, created, user_img) VALUES(?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, 
-				usersInfo.getUser_name(), usersInfo.getMailaddress(), usersInfo.getPassword(), usersInfo.getAge_id(), usersInfo.getDatetime());
+				usersInfo.getUser_name(), usersInfo.getMailaddress(), usersInfo.getPassword(), usersInfo.getAge_id(), usersInfo.getDatetime(), usersInfo.getUser_img());
 	}
 
 	

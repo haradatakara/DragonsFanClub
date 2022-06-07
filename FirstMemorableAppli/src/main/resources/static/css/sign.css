@@ -1,0 +1,149 @@
+@charset "UTF-8";
+
+html {
+	font-size: 100%;
+}
+
+body {
+	padding-top: -5rem;
+}
+ .img-container {
+   display: flex;
+   flex-wrap:wrap;
+ }
+ 
+ form {
+   max-width: 500px;
+   margin: 0 auto;
+}  
+
+a {
+	text-decoration: none;
+}
+button {
+	transition: all .7s;
+	width: 20%;
+}
+button:hover {
+	opacity: 0.7;
+}
+
+
+
+.title {
+	text-align: center;
+	margin: 50px 0;
+}
+
+.btn {
+	width: 100px;
+	height: 50px;
+	color: white;
+}
+
+.age-area label {
+	display: block;
+}
+
+.nav-con {
+	justify-content: space-between;
+}
+
+.nav-con p {
+	padding-top: 20px;
+	margin-right: 70px; 
+}
+
+.age-area select {
+	background: white;
+	border: 1px solid #c3c5c5;
+	width: 100%;
+	padding: 7px;
+	border-radius: 5px;
+}
+
+.navbar {
+	height: 80px;
+}
+
+.container-fluid {
+	padding: 0 10%;
+}
+
+.signInComplete {
+	color: blue	;
+}
+.mainvisual {
+	height: 90vh;
+	max-width: 100%;
+	width: 100%;
+}
+
+nav {
+	height: 150px;
+}
+
+.input-error {
+	color: red;
+	font-weight: bold;
+} 
+
+a {
+	transition: all .3s;
+}
+
+a:hover {
+	opacity: .7;
+}
+.card-container {
+	margin-top: 40px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.card1 {
+	transition: all 1.5;
+	display: block;
+	flex-direction: initial;
+}
+
+.card:hover {
+	opacity: 0.7;
+}
+
+.footer {
+	margin-top: 150px;
+	text-align: center;
+}
+
+.btn-wrapper {
+	max-width: 500px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.shop-photo {
+	width: 	100%;
+	margin: 10px 1%; 
+	padding:2%;
+}
+
+.sec-title {
+	margin: 50px 1%;
+	font-size: 3rem;
+}
+
+.card-body .card-title {
+	font-size: 1.5rem;
+	font-family: 'Noto Sans JP', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro','メイリオ', 'Meiryo', '游ゴシック', 'Yu Gothic', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+}
+
+.card-body .card-text {
+	color: blue;
+	font-size: 2rem;
+}
+
+.card-img-top {
+	border-radius: 10%;
+}

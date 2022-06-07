@@ -1,18 +1,21 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>会員登録</title>
- <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-    <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
-    <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css"  th:href="@{/css/starter-template.css}" rel="stylesheet">
+<title>SignUp</title>
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<link href="/css/style.css" th:href="@{/css/sign.css}" rel="stylesheet">
+<link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
+	rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="starter-template.css" th:href="@{/css/starter-template.css}"
+	rel="stylesheet">
+
 </head>
 <body style="background-color: #eee;">
 	<nav class="navbar navbar-light bg-success">
@@ -20,41 +23,92 @@
 			<span class="navbar-brand mb-0 h8 text-white">MyStyle</span>
 		</div>
 	</nav>
-	<form method="POST" th:action="@{/baseball/signUp}" th:object="${signUpForm}">
-	    <h1 class="title" th:text="${title}">タイトル</h1>
-	    <p class="input-error" th:if="${passError}" th:text="${passError}"></p>
+	<form method="POST" th:action="@{/mystyle/signUp}" th:object="${signUpForm}">
+		<h1 class="title">SignUpForm</h1>
+		<p class="input-error" th:if="${passError}" th:text="${passError}"></p>
 		<div class="mb-3">
-			<label class="form-label">ユーザー名</label> 
+			<label class="form-label">UserName</label>
 			<!-- <span class="errorStr" th:errors="*{username}"></span> -->
-			 <div class="input-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
-			<input type="text" name="username" class="form-control" placeholder="山田太郎" th:value="*{username}" >
+			<div class="input-error" th:if="${#fields.hasErrors('username')}"
+				th:errors="*{username}"></div>
+			<input type="text" name="username" class="form-control"
+				placeholder="山田太郎" th:value="*{username}">
 		</div>
 		<div class="mb-3 age-area">
-		<label class="form-label">年代</label>
-		<select class="form-select form-select-sm" name="age_id" aria-label=".form-select-sm example">
-			<option value="1">10代</option>
-			<option value="2">20代</option>
-			<option value="3">30代</option>
-			<option value="4">40代</option>
-			<option value="5">50代以上</option>
-		</select>
+			<label class="form-label">Age</label> 
+			<select
+				class="form-select form-select-sm" name="age_id"
+				aria-label=".form-select-sm example">
+				<option value="1">10代</option>
+				<option value="2">20代</option>
+				<option value="3">30代</option>
+				<option value="4">40代</option>
+				<option value="5">50代以上</option>
+			</select>
 		</div>
 		<div class="mb-3">
 			<p class="input-error" th:if="${mailError}" th:text="${mailError}"></p>
-			<label for="exampleInputEmail1" class="form-label">メールアドレス</label> 
-			<div class="input-error" th:if="${#fields.hasErrors('mailaddress')}" th:errors="*{mailaddress}"></div>
-			<input type="email" name="mailaddress" class="form-control" id="exampleInputEmail1"
-				aria-describedby="emailHelp" placeholder="example@mail.com" th:value="*{mailaddress}">
+			<label for="exampleInputEmail1" class="form-label">Mail</label>
+			<div class="input-error" th:if="${#fields.hasErrors('mailaddress')}"
+				th:errors="*{mailaddress}"></div>
+			<input type="email" name="mailaddress" class="form-control"
+				id="exampleInputEmail1" aria-describedby="emailHelp"
+				placeholder="example@mail.com" th:value="*{mailaddress}">
+		</div>
+		<div class="mb-3">
+			<label for="exampleInputEmail1" class="form-label"
+				style="display: inline-block;">Image</label>
+			<!-- 	<th:block th:if="${imgId > 0 && imgId < 9}">
+				<img class="select-img" th:src="|/img/user/img${imgId}.jpg|"
+					style="width: 100px; height: 100px; border-radius: 50%;">
+				<input type="hidden" name="userImg" th:value="${imgId}">
+			</th:block> -->
+			<img class="select-img" src="/img/user/img1.jpg" style="width: 100px; height: 100px; border-radius: 50%;">
+			<input class="select-input" type="hidden" name="userImg" value="">
+
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+				data-bs-target="#staticBackdrop">Select!!</button>
+
+			<!-- Modal -->
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+				data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">Select
+								UserImage</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body img-container">
+							<th:block th:each="i : ${#numbers.sequence(1, 8)}">
+								<div class="content">
+									<button class="btn-img" type="button" data-bs-dismiss="modal">
+										<img th:src="|/img/user/img${i}.jpg|" style="height: 150px; width: 150px;">
+									</button>
+									<input class="btn-input" th:value="${i}" type="hidden">
+								</div>
+							</th:block>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="mb-4">
-			<label for="exampleInputPassword1" class="form-label">パスワード</label> 
-			<div class="input-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-			<input type="password" name="password" class="form-control" id="exampleInputPassword1" th:value="*{password}">
+			<label for="exampleInputPassword1" class="form-label">Password</label>
+			<div class="input-error" th:if="${#fields.hasErrors('password')}"
+				th:errors="*{password}"></div>
+			<input type="password" name="password" class="form-control"
+				id="exampleInputPassword1" th:value="*{password}">
 		</div>
 		<div class="mb-4">
-			<label for="exampleInputPassword1" class="form-label">パスワード(再入力)</label> 
-			<div class="input-error" th:if="${#fields.hasErrors('repassword')}" th:errors="*{repassword}"></div>
-			<input type="password" name="repassword" class="form-control" id="exampleInputPassword1" th:value="*{repassword}">
+			<label for="exampleInputPassword1" class="form-label">Password(再入力)</label>
+			<div class="input-error" th:if="${#fields.hasErrors('repassword')}"
+				th:errors="*{repassword}"></div>
+			<input type="password" name="repassword" class="form-control"
+				id="exampleInputPassword1" th:value="*{repassword}">
 		</div>
 		<div class="mb-5 btn-wrapper">
 			<input type="submit" value="会員登録" class="btn btn-success" />
@@ -62,8 +116,30 @@
 		<div class="mb-5 pt-5 btn-wrapper">
 			<p>ログインページへの移動はこちらから</p>
 			<p>☟☟☟☟☟☟☟☟☟☟☟</p>
-			<input type="button" onclick="location.href='./signIn'" value="ログイン" class="btn btn-primary" />
+			<input type="button" onclick="location.href='./signIn'"
+				value="ログイン" class="btn btn-primary" />
 		</div>
 	</form>
+	<script type="text/javascript" th:inline="javascript">
+  /*<![CDATA[*/
+  const content = document.querySelectorAll('.content');
+  const selectImg = document.querySelector('.select-img'); 
+  const selectInput = document.querySelector('.select-input');
+  content.forEach(c => {
+	  c.addEventListener('click', () => {
+		  let img = c.firstElementChild;
+		  let imgSrc = img.firstElementChild.src;
+		  console.log(imgSrc);
+		  let imgId = c.lastElementChild.value;
+		  selectImg.setAttribute('src', imgSrc);
+		  
+		  selectInput.value = imgSrc;
+	  });
+  })
+</script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
 </body>
 </html>

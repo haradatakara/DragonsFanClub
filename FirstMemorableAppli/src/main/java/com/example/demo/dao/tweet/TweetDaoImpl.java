@@ -22,8 +22,8 @@ public class TweetDaoImpl implements TweetDao {
 	@Override
 	public boolean InsertTweet(Tweet tweet) {
 		boolean isInsert = false;
-		String sql = "INSERT INTO tweet_table(comment, created, user_img, user_id) VALUES(?,?,?,?)";
-		if(jdbcTemplate.update(sql, tweet.getComment(), tweet.getCreated(), tweet.getUserImg(), tweet.getUserId()) == 1) {
+		String sql = "INSERT INTO tweet_table(comment, created, user_id) VALUES(?,?,?)";
+		if(jdbcTemplate.update(sql, tweet.getComment(), tweet.getCreated(), tweet.getUserId()) == 1) {
 			isInsert = true;
 		}
 		
@@ -33,7 +33,7 @@ public class TweetDaoImpl implements TweetDao {
 	@Override
 	public List<Tweet> displayTweet() {
 		String sql 
-		   = "select tt.comment_id, count(lt.like_id) countnum, comment, tt.created, user_img, tt.user_id, ui.user_name, ui.mailaddress "
+		   = "select tt.comment_id, count(lt.like_id) countnum, comment, tt.created, ui.user_img, tt.user_id, ui.user_name, ui.mailaddress "
 		   		+ "from tweet_table tt "
 		   		+ "left outer join like_table lt on tt.comment_id = lt.comment_id left outer join usersInfo ui on ui.user_id = tt.user_id group by tt.comment_id order by tt.created desc";
 		

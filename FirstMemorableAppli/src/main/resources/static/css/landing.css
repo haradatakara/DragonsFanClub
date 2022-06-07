@@ -26,11 +26,6 @@ a {
 	margin: 50px 0;
 }
 
-.btn {
-	width: 100px;
-	height: 50px;
-	color: white;
-}
 
 
 .age-area label {
@@ -57,13 +52,12 @@ a {
 }
 
 .container-fluid {
-	max-width: 1200px;
 	margin: 0 auto;
 	padding: 0 10%;
 }
 
 .mainvisual {
-	height: 90vh;
+	height: 92.5vh;
 	max-width: 100%;
 	width: 100%;
 }
@@ -96,7 +90,7 @@ a:hover {
 }
 
 .card {
-	width: 30%;
+	width: 40%;
 	margin-bottom: 50px; 
 }
 

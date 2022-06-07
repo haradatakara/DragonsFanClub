@@ -1,0 +1,91 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Input Confirm</title>
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<link href="/css/style.css" th:href="@{/css/transaction.css}"
+	rel="stylesheet">
+<link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
+	rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="starter-template.css" th:href="@{/css/starter-template.css}"
+	rel="stylesheet">
+
+</head>
+<body style="background-color: #eee;">
+	<div th:replace="navi :: nav"></div>
+	<form method="POST" th:action="@{/mystyle/landing/transaction_complete}" th:object="${confirmForm}">
+		<h1 class="title">Confirm YourInfo</h1>
+		<p class="input-error" th:if="${passError}" th:text="${passError}"></p>
+		<th:block th:each="f :${form}">
+		<div class="mb-3">
+			<label class="form-label">UserName</label>
+			<h3 th:text="*{getUsername()}"></h3>
+		</div>
+		<div class="mb-3">
+			<label for="exampleInputEmail1" class="form-label">Mail</label>
+			<h3 th:text="*{getMailaddress()}"></h3>
+		</div>
+		</th:block>
+		<div class="mb-3">
+			
+			<label class="form-label">Address</label>
+			<h3 th:text="*{getAddress()}"></h3>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Method of payment</label>
+			<h3 th:text="*{getPayment()}"></h3>
+			<label th:if="*{!getCreditNumber().equals('')}" class="form-label">CreditNumber</label>
+			<h3 th:text="*{getCreditNumber()}"></h3>
+			<label th:if="*{!getCreditPassword().equals('')}" class="form-label">CreditPassword</label>
+			<h3 th:text="*{getCreditPassword()}"></h3>
+		</div>
+		<div class="mb-5">
+			<label class="form-label">Date</label>
+			<h3 th:text="*{getDates()}"></h3>
+		</div>
+		
+		<table class="table table-striped" style="background: white">
+			<thead>
+				<tr>
+					<th scope="col">No.</th>
+					<th scope="col">ProductName</th>
+					<th scope="col">Image</th>
+					<th scope="col">X</th>
+					<th scope="col">XL</th>
+					<th scope="col">XXL</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each=" l, Stat: ${list}">
+					<tr>
+						<th scope="row" th:text="${Stat.count}">1</th>
+						<td th:text="${l.getPro_name()}">Mark</td>
+						<td><img th:src="|${l.getPro_img()}img1.jpg|" style="width: 100px; height: 100px;"></td>
+						<td th:text="${l.getSize_l()}"></td>
+						<td th:text="${l.getSize_xl()}"></td>
+						<td th:text="${l.getSize_xxl()}"></td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+		<div class="mb-5 btn-wrapper">
+			<input type="button" onclick="history.back()" value="戻る" class="btn btn-primary" style="height: 60px; width: 200px;" />
+			<input type="submit" value="購入する" class="btn btn-success" style="height: 60px; width: 200px;" />
+		</div>
+	</form>
+	<script type="text/javascript" th:inline="javascript">
+		
+	</script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

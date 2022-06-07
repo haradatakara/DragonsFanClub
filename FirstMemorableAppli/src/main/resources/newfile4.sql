@@ -31,11 +31,7 @@ CREATE TABLE like_table
 	comment_id int NOT NULL,
 	PRIMARY KEY (like_id)
 );
-INSERT INTO like_table(user_id, comment_id) VALUES
-(1,6),
-(1,7),
-(1,8),
-(1,9);
+
 
 
 
@@ -57,22 +53,21 @@ INSERT INTO product_style(style_name) VALUES
 DROP TABLE products;
 CREATE TABLE products
 (
-	prodtct_id int NOT NULL UNIQUE AUTO_INCREMENT,
+	product_id int NOT NULL UNIQUE AUTO_INCREMENT,
 	name varchar(100) NOT NULL,
 	price int NOT NULL,
 	img varchar(100) NOT NULL,
 	shop_id int NOT NULL,
 	style_id int NOT NULL,
 	genre_id int NOT NULL,
-	size_id int NOT NULL,
-	PRIMARY KEY (prodtct_id)
+	PRIMARY KEY (product_id)
 );
-INSERT INTO products(name, price, img, shop_id, style_id, genre_id, size_id) VALUES
-('ポロラルフローレン', 3500, 'img/clothes/img1.jpg', 1, 2, 1, 2),
-('nautica', 7600, 'img/clothes/img2.jpg',4, 1, 2, 2),
-('gap', 9800, 'img/clothes/img3.jpg', 5, 2, 2, 2),
-('アメリカ輸入品', 6700, 'img/clothes/img4.jpg', 3, 1, 2, 2),
-('ポロラルフローレン', 1500, 'img/clothes/img5.jpg', 1, 2, 1, 2);
+INSERT INTO products(name, price, img, shop_id, style_id, genre_id ) VALUES
+('ポロラルフローレン', 3500, '/img/shop/nyuyoak/products/', 1, 2, 1),
+('nautica', 7600, '/img/shop/flamingo/products/',2, 1, 2),
+('gap', 9800, '/img/shop/amber/products/', 3, 2, 2),
+('アメリカ輸入品', 6700, '/img/shop/ootora/products/', 4, 1, 2),
+('ポロラルフローレン', 1500, '/img/shop/safari/products/', 5, 2, 1);
 
 
 DROP TABLE product_genre;
@@ -111,16 +106,16 @@ CREATE TABLE shop
 	shop_img varchar(100) NOT NULL,
 	url varchar(200) NOT NULL,
 	description varchar(300) NOT NULL,
+	map varchar(500) NOT NULL,
 	PRIMARY KEY (shop_id)
 );
-INSERT INTO shop(shop_name, address, tel_number, shop_img, url, description) VALUES
-('ニューヨークジョー', '吉祥寺', '08055554444', '/img/nyuyoak' ,'http:nyu-yoku.jp', '不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。<br>買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。<br>NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。<br>ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。<br>また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。'),
-('フラミンゴ', '原宿', '09055554444', '/img/nyuyoak' ,'http:flamingo.jp', '不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。<br>買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。<br>NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。<br>ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。<br>また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。'),
-('タップス', '下北沢', '08066664444','/img/nyuyoak' , 'http:tapps.jp','不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。<br>買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。<br>NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。<br>ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。<br>また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。'),
-('make', '吉祥寺', '08055557777', '/img/nyuyoak' ,'http:nyullku.jp','不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。<br>買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。<br>NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。<br>ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。<br>また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。'),
-('cast', '世田谷', '08055557777','/img/nyuyoak' , 'http:nyul.jp','不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。<br>買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。<br>NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。<br>ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。<br>また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。'),
-('mdd', '巣鴨', '08055557777', '/img/nyuyoak' ,'http:nyul.jp','不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。<br>買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。<br>NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。<br>ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。<br>また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。'),
-('久米', '吉祥寺', '08055557777','/img/nyuyoak' , 'http:nyulljp','不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。<br>買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。<br>NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。<br>ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。<br>また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。');
+INSERT INTO shop(shop_name, address, tel_number, shop_img, url, description, map) VALUES
+('NEW YORK JOE', '吉祥寺', '08055554444', '/img/shop/nyuyoak' ,'nyu-yoku.jp', '不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.0197661124466!2d139.5783145!3d35.701131200000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018ee37ee1db4ad%3A0xfba6f2e9d85af040!2z77yu77yl77y377y577yv77yy77yr77yq77yv77yl77yl77y477yj77yo77yh77yu77yn77yl!5e0!3m2!1sja!2sjp!4v1654223550725!5m2!1sja!2sjp'),
+('FLAMINGO', '下北沢', '09055554444', '/img/shop/flamingo' ,'flamingo.jp', '不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.580864030987!2d139.66487101744383!3d35.6626969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018f333338af425%3A0x87aaf990ac3129f1!2z44OV44Op44Of44Oz44K0IOS4i-WMl-ayouW6lw!5e0!3m2!1sja!2sjp!4v1654235006556!5m2!1sja!2sjp"'),
+('AMBER LION', '吉祥寺', '08066664444','/img/shop/amber' , 'tapps.jp','JR吉祥寺駅から徒歩約3分のところにあります。入口がわかりにくいので気をつけてくださいね！「AMBER LION」はアメリカ・ヨーロッパの古着を扱うお店で、色々な古着があり見ているだけでも楽しいです♪', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.0107717970945!2d139.57634951520097!3d35.70135253647572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018ee37f434a3b3%3A0xa291b25abcc99e6d!2sAMBER%20LION!5e0!3m2!1sja!2sjp!4v1654235343822!5m2!1sja!2sjp"'),
+('Small Change', '高円寺', '08055557777', '/img/shop/small' ,'samll.jp','不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.0107717970945!2d139.57634951520097!3d35.70135253647572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018ee37f434a3b3%3A0xa291b25abcc99e6d!2sAMBER%20LION!5e0!3m2!1sja!2sjp!4v1654235343822!5m2!1sja!2sjp"'),
+('safari', '吉祥寺', '08055557777','/img/shop/safari' , 'sfari.jp','不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.0107717970945!2d139.57634951520097!3d35.70135253647572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018ee37f434a3b3%3A0xa291b25abcc99e6d!2sAMBER%20LION!5e0!3m2!1sja!2sjp!4v1654235343822!5m2!1sja!2sjp"'),
+('古着商大虎', '高円寺', '08055557777', '/img/shop/ootora' ,'nyul.jp','不要になった衣類・靴・鞄・アクセサリーの処分に困り、今までゴミとして捨てていた方…。買取に出したくても、ハードルの高い査定に売る事を諦め、タンスの肥やしにされている方…。NEW YORK JOE EXCHANGEでは、そういった方々のお持ちになられている衣類・靴・鞄・アクセサリーの最終引き取り人となるべく、独自の査定システムで買取させて頂きます。ブランド・ノーブランド、年代も問わずに幅広い間口より買取を致しますので、店内には様々なスタイルの商品が多数取り揃います。また、店内商品の全てが10,000円以下。平均商品価格は2,000円となります。', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.0107717970945!2d139.57634951520097!3d35.70135253647572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018ee37f434a3b3%3A0xa291b25abcc99e6d!2sAMBER%20LION!5e0!3m2!1sja!2sjp!4v1654235343822!5m2!1sja!2sjp"');
 
 
 DROP TABLE tweet_table;
@@ -129,14 +124,13 @@ CREATE TABLE tweet_table
 	comment_id int NOT NULL UNIQUE AUTO_INCREMENT,
 	comment varchar(140) NOT NULL,
 	created datetime NOT NULL,
-	user_img varchar(50),
 	user_id int DEFAULT 100 NOT NULL,
 	PRIMARY KEY (comment_id)
 );
-INSERT INTO tweet_table(comment, created, user_img, user_id) VALUES
-('おはようございます！！！', '2022-05-26 18:12:44.413', '/img/players/img01.jpg', 1),
-('こんばんは！！！', '2022-05-26 20:12:44.413', '/img/players/img02.jpg', 2),
-('だるい', '2022-05-27 18:12:44.413', '/img/players/img01.jpg', 1);
+INSERT INTO tweet_table(comment, created, user_id) VALUES
+('おはようございます！！！', '2022-05-26 18:12:44.413', 1),
+('こんばんは！！！', '2022-05-26 20:12:44.413', 2),
+('だるい', '2022-05-27 18:12:44.413', 1);
 
 
 DROP TABLE usersInfo;
@@ -148,8 +142,63 @@ CREATE TABLE usersInfo
 	password varchar(30) NOT NULL,
 	created datetime NOT NULL,
 	age_id int NOT NULL,
+	user_img varchar(200) NOT NULL 
 	PRIMARY KEY (user_id)
 );
+
+DROP TABLE size_stock;
+CREATE TABLE size_stock
+(
+    product_id int NOT NULL UNIQUE ,
+    l_size int NOT NULL,
+    xl_size int NOT NULL,
+    xxl_size int NOT NULL
+ );
+ INSERT INTO size_stock VALUES
+ (1, 1, 0, 0),
+ (2, 0, 1, 0),
+ (3, 1, 2, 3),
+ (4, 1, 0, 3),
+ (5, 1, 1, 1);
+ 
+ 
+DROP TABLE size_stock2;
+CREATE TABLE size_stock2
+(
+    stock_id int NOT NULL UNIQUE AUTO_INCREMENT,
+    product_id int NOT NULL ,
+    size_id int  NOT NULL
+ );
+ INSERT INTO size_stock2(product_id, size_id) VALUES
+ (1, 1),
+ (2, 2),
+ (3, 1),
+ (3, 2),
+ (3, 2),
+ (3, 3),
+ (3, 3),
+ (3, 3),
+ (4, 1),
+ (4, 3),
+ (4, 3),
+ (4, 3),
+ (5, 1),
+ (5, 2),
+ (5, 3);
+ 
+DROP TABLE size_correct;
+CREATE TABLE size_correct
+(
+    size_id int NOT NULL,
+    size_name varchar(100) NOT NULL 
+ );
+ INSERT INTO size_correct VALUES
+ (1,'L'),
+ (2,'XL'),
+ (3,'XXL');
+ 
+
+ 
 
 
 
