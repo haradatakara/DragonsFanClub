@@ -6,7 +6,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>トランザクション</title>
+<title>トランザクション更新</title>
 <!-- Bootstrap core CSS -->
 <link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
@@ -22,30 +22,12 @@
 <body style="background-color: #eee;">
 	<div th:replace="navi :: nav"></div>
 	<form method="POST" th:action="@{/mystyle/landing/transaction_confirm}" th:object="${confirmForm}">
-		<h1 class="title">Input YourInfo</h1>
+		<h1 class="title">Update OrderInfo</h1>
 		<p class="input-error" th:if="${error}" th:text="${error}"></p>
-		<th:block th:each="f :${form}">
-		<div class="mb-3">
-			<label class="form-label">UserName</label>
-			<!-- <span class="errorStr" th:errors="*{username}"></span>
-			<div class="input-error" th:if="${#fields.hasErrors('username')}"
-				th:errors="*{username}"></div>  -->
-			<input type="text" name="username" class="form-control"
-				placeholder="山田太郎" th:value="${f.getUser_name()}">
-		</div>
+		<th:block th:each="l :${list}">
 		<div class="mb-3">
 			<!-- <p class="input-error" th:if="${mailError}" th:text="${mailError}"></p> -->
-			<label for="exampleInputEmail1" class="form-label">Mail</label>
-			<!-- <div class="input-error" th:if="${#fields.hasErrors('mailaddress')}"
-				th:errors="*{mailaddress}"></div> -->
-			<input type="email" name="mailaddress" class="form-control"
-				id="exampleInputEmail1" aria-describedby="emailHelp"
-				placeholder="example@mail.com" th:value="${f.getMailaddress()}">
-		</div>
-		</th:block>
-		<div class="mb-3">
-			<!-- <p class="input-error" th:if="${mailError}" th:text="${mailError}"></p> -->
-			<label class="form-label">Address</label>
+			<label class="form-label">payment</label>
 			<!-- <div class="input-error" th:if="${#fields.hasErrors('mailaddress')}"
 				th:errors="*{mailaddress}"></div> -->
 			<input type="text" name="address" class="form-control"
@@ -96,6 +78,7 @@
 				<option th:value="614">6/14</option>
 			</select>
 		</div>
+		</th:block>
 		<div class="mb-5 btn-wrapper">
 		    <input type="button" onclick="history.back()" value="戻る" class="btn btn-primary" style="height: 60px; width: 200px;" />
 			<input type="submit" value="確認画面へ" class="btn btn-success" style="height: 60px;width: 200px;" />

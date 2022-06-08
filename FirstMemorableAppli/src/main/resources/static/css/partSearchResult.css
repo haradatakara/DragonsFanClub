@@ -28,6 +28,11 @@ nav
 	font-weight: bold;
 }
 
+.main-fluid {
+	margin: 0 auto;
+	padding: 0 15%;
+}
+
 .signInComplete {
 	color: blue	;
 }

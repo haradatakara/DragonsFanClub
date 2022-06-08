@@ -10,6 +10,7 @@
 <title>PRODUCT_LIST</title>
 <!-- <link rel="favicon" href="/img/user/icon.png"> -->
 <!-- Bootstrap core CSS -->
+<link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 <link href="/css/style.css" th:href="@{/css/shopping.css}"
 	rel="stylesheet">
@@ -21,7 +22,12 @@
 </head>
 <body style="background-color: #eee;">
 	<div th:replace="navi :: nav"></div>
-	   <h2 style="max-width: 1300px;margin: 0 auto; padding: 50px 20px;">TOPS</h2>
+	   <th:block th:if="${id == 1}">
+ 	       <h2 style="max-width: 1300px;margin: 0 auto; padding: 50px 20px;" ><img src="/img/tops2.png" style="width: 80px;" >TOPS<img src="/img/tops1.png" style="width: 80px;" ></h2>
+	   </th:block>
+	   <th:block th:if="${id == 2}">
+ 	       <h2 style="max-width: 1300px;margin: 0 auto; padding: 50px 20px;" ><img src="/img/tops2.png" style="width: 80px;" >PANTS<img src="/img/tops1.png" style="width: 80px;" ></h2>
+	   </th:block>
 	   <main style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
 	   <th:block th:each="l : ${list}">
 	      <form th:action="@{/mystyle/landing/product_list/product_detail/{pro_id} (pro_id = *{l.getPro_id()})}">
@@ -36,7 +42,7 @@
 		</th:block>
 	</main>
 	<footer>
-		<p class="footer">&copy;Takara.H</p>
+		<p class="footer" style="text-align: center;">&copy;Takara.H</p>
 	</footer>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

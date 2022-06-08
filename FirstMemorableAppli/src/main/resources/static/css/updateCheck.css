@@ -64,9 +64,9 @@ a {
 }
 
 .update-fluid {
-	max-width: 1100px;
+	max-width: 1200px;
 	margin: 0 auto;
-	padding: 0 10%;
+	padding: 0 5%;
 }
 
 
@@ -153,6 +153,60 @@ input {
 	padding: 10px 20px;
 	background: blue;
 	color: white;
+}
+
+.coupon {
+  display: flex;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  background: white;
+}
+.price {
+  font-size: 30px;
+  font-weight: 900;
+  color: #f56359;
+}
+.date {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+.left {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 40px 20px;
+}
+.right {
+  position: relative;
+  display: flex;
+  width: 160px;
+  padding: 40px 20px;
+  border-left: 2px dashed #e0e6ef;
+  justify-content: center;
+}
+
+/* circle-css */
+
+.right::before,
+.right::after {
+  position: absolute;
+  display: block;
+  content: "";
+  border-radius: 100%;
+  background: #e0e6ef;
+  left: -12px;
+  width: 22px;
+  height: 22px;
+}
+.right::before {
+  top: -11px;
+}
+.right::after {
+  bottom: -11px;
 }
 
 

@@ -9,6 +9,7 @@
 <meta name="author" content="">
 <title>ALL_SEARCH</title>
 <!-- Bootstrap core CSS -->
+<link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 <link href="/css/style.css" th:href="@{/css/allSearch.css}" rel="stylesheet">
 <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
@@ -20,7 +21,7 @@
 <body style="background-color: #eee;">
 	<div th:replace="navi :: nav"></div>
 	<main class="main-fluid">
-		<h1 class="sec-title">SHOPS</h1>
+		<h1 class="sec-title"><img src="/img/icon.png" style="width: 80px;" >SHOPS<img src="/img/icon4.png" style="width: 80px;" ></h1>
 		<div class="card-container">
 		  <th:block th:each="l : ${resultList}" class="card-container">
 		  <form th:action="@{/mystyle/landing/part_shop/{shop_id} (shop_id=*{l.getShop_id()})}">

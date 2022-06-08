@@ -1,5 +1,6 @@
 package com.example.demo.dao.user;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.entity.update.UpdateOrder;
 import com.example.demo.entity.user.UserInfo;
 
 @Repository
@@ -17,18 +19,6 @@ public class LoginDaoImpl implements LoginDao {
 	
 	public LoginDaoImpl(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;	
-	}
-
-	@Override
-	public void update(UserInfo usersInfo) {
-		// TODO 自動生成されたメソッド・スタブ
-		
-	}
-
-	@Override
-	public List<UserInfo> getAll() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
 	}
 
 	@Override
@@ -47,6 +37,13 @@ public class LoginDaoImpl implements LoginDao {
 			list.add(ui);
 		}
 		return list;
+	}
+	
+	@Override
+	public void signUp(UserInfo usersInfo) {
+		String sql = "INSERT INTO usersInfo(user_name, mailaddress, password, age_id, created, user_img) VALUES(?, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql, 
+				usersInfo.getUser_name(), usersInfo.getMailaddress(), usersInfo.getPassword(), usersInfo.getAge_id(), usersInfo.getDatetime(), usersInfo.getUser_img());
 	}
 	
 	public boolean updateResultName(String inputName, int id) {
@@ -117,13 +114,61 @@ public class LoginDaoImpl implements LoginDao {
 		
 		return list;
 	}
-
-	@Override
-	public void signUp(UserInfo usersInfo) {
-		String sql = "INSERT INTO usersInfo(user_name, mailaddress, password, age_id, created, user_img) VALUES(?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sql, 
-				usersInfo.getUser_name(), usersInfo.getMailaddress(), usersInfo.getPassword(), usersInfo.getAge_id(), usersInfo.getDatetime(), usersInfo.getUser_img());
+	
+	public List<UpdateOrder> confirmOrder(int userId) {
+		String sql = "select order_id, p.product_id, name, payment, orderday, l_size, xl_size, xxl_size, img  from order_master om inner join products p on p.product_id = om.product_id where user_id = ?";
+		
+		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, userId);
+		List<UpdateOrder> list = new ArrayList<>();
+		
+		for(Map<String, Object> res: resultList) {
+			UpdateOrder uo = new UpdateOrder();
+			uo.setOrder_id((int) res.get("order_id"));
+			uo.setPro_name((String) res.get("name"));
+			uo.setPayment((String) res.get("payment"));
+			uo.setOrderday((Timestamp) res.get("orderday"));
+			uo.setImg((String) res.get("img"));
+			uo.setProduct_id((int) res.get("product_id"));
+			uo.setX_size((int) res.get("l_size"));
+			uo.setXl_size((int) res.get("xl_size"));
+			uo.setXxl_size((int) res.get("xxl_size"));
+			list.add(uo);
+		}
+		
+		return list;
 	}
+	
+	public void cancelOrder(int orderId,int l, int xl, int xxl, int productId) {
+		String DELETE = "DELETE FROM order_master WHERE order_id = ?";
+		jdbcTemplate.update(DELETE, orderId);
+		String RETURN_STOCK = "UPDATE size_stock SET l_size = l_size + ? , xl_size = xl_size + ?, xxl_size = xxl_size + ? WHERE product_id = ?";
+		jdbcTemplate.update(RETURN_STOCK, l, xl, xxl, productId);
+	}
+	
+	public UpdateOrder detailOrder(int orderId) {
+		String sql = "select order_id, p.product_id, name, payment, orderday, l_size, xl_size, xxl_size, img, arriveday from order_master om "
+				+ "inner join products p on p.product_id = om.product_id where order_id = ?";
+		
+		UpdateOrder uo = new UpdateOrder();
+		Map<String, Object> res = jdbcTemplate.queryForMap(sql, orderId);
+		uo.setOrder_id((int) res.get("order_id"));
+		uo.setPro_name((String) res.get("name"));
+		uo.setPayment((String) res.get("payment"));
+		uo.setOrderday((Timestamp) res.get("orderday"));
+		uo.setImg((String) res.get("img"));
+		uo.setProduct_id((int) res.get("product_id"));
+		uo.setX_size((int) res.get("l_size"));
+		uo.setXl_size((int) res.get("xl_size"));
+		uo.setXxl_size((int) res.get("xxl_size"));
+		uo.setArriveday((String) res.get("arriveday"));
+		
+		return uo;
+		
+	}
+
+	
+	
+	
 
 	
 

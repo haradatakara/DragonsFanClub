@@ -10,6 +10,7 @@
 <title>PRODUCT_LIST</title>
 <!-- <link rel="favicon" href="/img/user/icon.png"> -->
 <!-- Bootstrap core CSS -->
+<link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 <link href="/css/style.css" th:href="@{/css/pro_details.css}"
 	rel="stylesheet">
@@ -22,7 +23,7 @@
 <body style="background-color: #eee;">
 	<div th:replace="navi :: nav"></div>
 	<main style="margin-top: 20px;">
-		<h2 style="max-width: 850px; margin: 0 auto; padding: 30px 20px 10px;">TOPS</h2>
+		<h2 style="max-width: 850px; margin: 0 auto; padding: 30px 20px 10px;"></h2>
 		<div >
 			<th:block th:each="l : ${list}">
 			<h3 th:if="${error}" th:text="${error}" style="max-width: 850px; margin: 0 auto; padding: 50px 20px; color: red; height: 50px;"></h3>
@@ -127,7 +128,7 @@
 		</th:block>
 	</main>
 	<footer>
-		<p class="footer">&copy;Takara.H</p>
+		<p class="footer" style="text-align: center;">&copy;Takara.H</p>
 	</footer>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

@@ -9,6 +9,7 @@
 <meta name="author" content="">
 <title>更新フォーム</title>
  <!-- Bootstrap core CSS -->
+ <link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 <link href="/css/style.css" th:href="@{/css/updateCheck.css}" rel="stylesheet">
 <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
@@ -18,10 +19,12 @@
 <body style="background-color: #eee;">
 	<div th:replace="navi :: nav"></div>
 	<div class="update-fluid">
-		<h1 class="sec-title">更新フォーム</h1>
+		<h1 class="sec-title"><img src="/img/icon5.png" style="width: 80px;" >Update Form <img src="/img/icon4.png" style="width: 80px;" ></h1>
 		<div class="table-container"> 
 			<form th:action="@{/mystyle/landing/update}" th:method="POST">
-				<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+				<th:block th:if="${error}">
+				    <div class="alert alert-danger" role="alert">そのメールアドレスは登録不可能です。</div>
+			    </th:block>
 				<table class="table" style="margin: 0 auto; padding-top: 30px;">
 					<tr>
 						<td>
@@ -41,7 +44,7 @@
 				</table>
 				   <div class="btn-wrapper" style="margin: 0px auto 50px; "> 
 				    <button type="submit" class="btn btn-primary">Update</button>
-			        <a onclick="location.href='./update'" class="btn btn-success" style="color: white; padding-top:10px; ">Return</a>
+			        <a onclick="location.href='/mystyle/landing/update'" class="btn btn-success" style="color: white; padding-top:10px; ">Return</a>
 				   </div>
 			</form>
 		</div>

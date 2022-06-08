@@ -81,6 +81,23 @@ public class TweetController {
 		boolean isError = false;
 		if(result.hasErrors()) {
 			isError = true;
+			List<Tweet> list = tweetService.displayTweet();
+			List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
+			for(Tweet t: list) {
+				t.setLiked(false);
+				for(Tweet l: likes) {
+					if(t.getTweetId() == l.getLikeId()) {
+						t.setLiked(true);
+					}
+				}			
+			}
+			UserInfo user = loginService.fetchUserInfoId((int) session.getAttribute("id"));
+			model.addAttribute("form", user);
+			model.addAttribute("list", list);
+			model.addAttribute("name", user.getUser_name());
+			model.addAttribute("mail", user.getMailaddress());
+			model.addAttribute("image", user.getUser_img());
+			model.addAttribute("form", user);
 			model.addAttribute("error", isError);
 			return "twitter";
 		} else {
@@ -88,7 +105,6 @@ public class TweetController {
 			tweet.setComment(tweetForm.getComment());
 			tweet.setCreated(LocalDateTime.now());
 			tweet.setUserId((int)session.getAttribute("id"));
-//            tweet.setUserImg();
             boolean isInsert = tweetService.InsertTweet(tweet);
             List<Tweet> like = tweetService.SearchPushLike((int) session.getAttribute("id"));
     		model.addAttribute("likes", like);

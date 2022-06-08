@@ -89,12 +89,12 @@ public class ShoppingDaoImpl implements ShoppingDao {
 		return list2;
 	}
 
-	public boolean orderComplete(int proId, String payment, LocalDateTime orderday, int userId) {
+	public boolean orderComplete(int proId, String payment, LocalDateTime orderday, int l, int xl, int xxl,String arriveday ,int userId) {
 		boolean isComplete = true;
-		String sql = "INSERT INTO order_master(product_id, payment, orderday, user_id) VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO order_master(product_id, payment, orderday, l_size, xl_size, xxl_size, arriveday ,user_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		System.out.println(isComplete);
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		if (jdbcTemplate.update(sql, proId, payment, timestamp, userId) == 0) {
+		if (jdbcTemplate.update(sql, proId, payment, timestamp,l, xl, xxl, arriveday,userId) == 0) {
 			isComplete = false;
 		}
 
@@ -110,6 +110,7 @@ public class ShoppingDaoImpl implements ShoppingDao {
 		String sql = "UPDATE size_stock SET l_size = l_size + ? , xl_size = xl_size + ?, xxl_size = xxl_size + ? WHERE product_id = ?";
 		jdbcTemplate.update(sql, l, xl, xxl, proId);
 	}
+
 	
 	
 	

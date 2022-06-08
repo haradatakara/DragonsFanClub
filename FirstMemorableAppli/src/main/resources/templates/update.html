@@ -1,67 +1,131 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <title>個人情報の確認</title>
- <!-- Bootstrap core CSS -->
+<!-- Bootstrap core CSS -->
+<link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-<link href="/css/style.css" th:href="@{/css/updateCheck.css}" rel="stylesheet">
-<link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link href="/css/style.css" th:href="@{/css/updateCheck.css}"
+	rel="stylesheet">
+<link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
+	rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="starter-template.css"  th:href="@{/css/starter-template.css}" rel="stylesheet">
+<link href="starter-template.css" th:href="@{/css/starter-template.css}"
+	rel="stylesheet">
 </head>
 <body style="background-color: #eee;">
 	<div th:replace="navi :: nav"></div>
 	<div class="update-fluid">
-	  <h1 class="sec-title">UPDATE</h1>
+		<h1 class="sec-title">
+			<img src="/img/icon5.png" style="width: 80px;">UPDATE<img
+				src="/img/icon4.png" style="width: 80px;">
+		</h1>
 		<div class="table-container">
-	    <p class="update-sec">UserInfo</p>
-		<th:block th:if="${isUpdate}">
-			<div class="alert alert-primary" role="alert">UPDATE SUCCESS!!</div>
-		</th:block>
-		<table class="table table-striped" style="margin-bottom: 0rem;">
-			<tbody>
-				<tr>
-					<td style="padding: 20px;">Name</td>
-					<th:block th:if="${form}">
-					   <td style="padding: 20px; font-size: 20px;" th:text="${form.getUser_name()}">???</td>
-					</th:block>
-					<th:block th:unless="${form}">
-					   <td style="padding: 20px; font-size: 20px;"><p style="text-align: center;">???</p></td>
-					</th:block>
-					<td style="padding: 20px;"><a th:href="@{/mystyle/landing/update_check_name}" class="btn btn-primary" style="color: white; border-radius: 100px; padding-top: 10px;">Update</a></td>
-				</tr>
-				<tr>
-					<td style="padding: 20px;">MailAddress</td>
-					<th:block th:if="${form}">
-					   <td style="padding: 20px; font-size: 20px;" th:text="${form.getMailaddress()}">???</td>
-					</th:block>
-					<th:block th:unless="${form}">
-					   <td style="padding: 20px; font-size: 20px;"><p style="text-align: center;">???</p></td>
-					</th:block>
-					<td style="padding: 20px;"><a th:href="@{/mystyle/landing/update_check_mail}" class="btn btn-primary" style="color: white; border-radius: 100px; padding-top: 10px;">Update</a></td>
-				</tr>
-				<tr>
-					<td style="padding: 20px;">Password</td>
-					<th:block th:if="${form}">
-					   <td style="padding: 20px; font-size: 20px;" th:text="${form.getPassword()}">???</td>
-					</th:block>
-					<th:block th:unless="${form}">
-					   <td style="padding: 20px; font-size: 20px;"><p style="text-align: center;">???</p></td>
-					</th:block>
-					<td style="padding: 20px;"><a th:href="@{/mystyle/landing/update_check_pass}" class="btn btn-primary" style="color: white; border-radius: 100px; padding-top: 10px;">Update</a></td>
-				</tr>
-		</table>
-	  </div>
+			<p class="update-sec">UserInfo</p>
+			<th:block th:if="${isUpdate}">
+				<div class="alert alert-primary" role="alert">更新に成功しました！！</div>
+			</th:block>
+			<table class="table table-striped" style="margin-bottom: 5rem;">
+				<tbody>
+					<tr>
+						<td style="padding: 20px;">Name</td>
+						<th:block th:if="${form}">
+							<td style="padding: 20px; font-size: 20px;"
+								th:text="${form.getUser_name()}">???</td>
+						</th:block>
+						<th:block th:unless="${form}">
+							<td style="padding: 20px; font-size: 20px;"><p
+									style="text-align: center;">???</p></td>
+						</th:block>
+						<td style="padding: 20px;"><a
+							th:href="@{/mystyle/landing/update/update_check_name}"
+							class="btn btn-primary"
+							style="color: white; border-radius: 100px; padding-top: 10px;">Update</a></td>
+					</tr>
+					<tr>
+						<td style="padding: 20px;">MailAddress</td>
+						<th:block th:if="${form}">
+							<td style="padding: 20px; font-size: 20px;"
+								th:text="${form.getMailaddress()}">???</td>
+						</th:block>
+						<th:block th:unless="${form}">
+							<td style="padding: 20px; font-size: 20px;"><p
+									style="text-align: center;">???</p></td>
+						</th:block>
+						<td style="padding: 20px;"><a
+							th:href="@{/mystyle/landing/update/update_check_mail}"
+							class="btn btn-primary"
+							style="color: white; border-radius: 100px; padding-top: 10px;">Update</a></td>
+					</tr>
+					<tr>
+						<td style="padding: 20px;">Password</td>
+						<th:block th:if="${form}">
+							<td style="padding: 20px; font-size: 20px;"
+								th:text="${form.getPassword()}">???</td>
+						</th:block>
+						<th:block th:unless="${form}">
+							<td style="padding: 20px; font-size: 20px;"><p
+									style="text-align: center;">???</p></td>
+						</th:block>
+						<td style="padding: 20px;"><a
+							th:href="@{/mystyle/landing/update/update_check_pass}"
+							class="btn btn-primary"
+							style="color: white; border-radius: 100px; padding-top: 10px;">Update</a></td>
+					</tr>
+					<tr>
+						<td style="padding: 20px;">Order</td>
+						<td style="padding: 20px; font-size: 20px;">???</td>
+						<td style="padding: 20px;"><a
+							th:href="@{/mystyle/landing/update/update_check_order}"
+							class="btn btn-primary"
+							style="color: white; border-radius: 100px; padding-top: 10px;">Confirm</a></td>
+					</tr>
+			</table>
+		<p class="update-sec">Coupon</p>
+		<div class="coupon" style="margin-bottom: 30px;">
+			<div class="left">
+				<div class="price">500円OFF</div>
+			</div>
+			<div class="right">
+				<div class="date">
+					有効期限<br>2022年12月31日
+				</div>
+			</div>
+		</div>
+		<div class="coupon">
+			<div class="left">
+				<div class="price">店舗限定！１０％OFF</div>
+			</div>
+			<div class="right">
+				<div class="date">
+					有効期限<br>2021年12月31日
+				</div>
+			</div>
+		</div>
 	</div>
+		</div>
 	<footer>
-	  <p class="footer">&copy;Takara.H</p>
+		<p class="footer">&copy;Takara.H</p>
 	</footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+	document.querySelectorAll('.sample .toast')
+	  .forEach(toastNode => {
+	    const toast = new bootstrap.Toast(toastNode, {
+	      autohide: false
+	    })
+
+	    toast.show()
+	  })
+	</script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
 </body>
 </html>

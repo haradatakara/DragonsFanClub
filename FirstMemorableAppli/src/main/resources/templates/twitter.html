@@ -9,13 +9,14 @@
 <meta name="author" content="">
 <title>個人情報の確認</title>
  <!-- Bootstrap core CSS -->
+ <link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 <link href="/css/style.css" th:href="@{/css/twitter.css}" rel="stylesheet">
 <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="starter-template.css"  th:href="@{/css/starter-template.css}" rel="stylesheet">
 </head>
-<body style="background-color: #eee;">
+<body>
 	<div th:replace="navi :: nav"></div>
 	<div class="twitter__container">
 		<!-- タイトル -->
@@ -28,7 +29,7 @@
 			<div class="twitter__contents scroll">
 				<!-- 記事エリア -->
 				<th:block th:each=" l :${list} ">
-					<div class="twitter__block" style="padding: 20px;" >
+					<div class="twitter__block" style="padding: 20px; height: 100px;" >
 						<figure>
 						    <img class="user-image" th:src="*{l.getUserImg()}">
 						  <!--   |/img/user/img${imgId}.jpg| -->
@@ -38,8 +39,8 @@
 								うさきち<span class="name_reply" th:text="${mail}">@usa_tan</span>
 							</div>
 							<div class="date" th:text="*{l.getCreated()}">1時間前</div>
-							<div class="text">
-								<div th:text="*{l.getComment()}"></div>
+							<div class="text" >
+								<div th:text="*{l.getComment()}" style="height: 20px;"></div>
 							</div>
 							<div class="twitter__icon">
 							 <form th:action="@{/mystyle/landing/twitter/like_count/{commentId}(commentId= *{l.getTweetId()}) }" method="POST"> 

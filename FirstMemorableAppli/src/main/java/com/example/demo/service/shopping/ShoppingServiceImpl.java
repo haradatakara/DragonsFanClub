@@ -29,8 +29,8 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return p;
 	}
 	
-	public boolean orderComplete(int proId, String payment, LocalDateTime orderday, int userId) {
-		boolean isComplete = dao.orderComplete(proId, payment, orderday, userId);
+	public  boolean orderComplete(int proId, String payment, LocalDateTime orderday, int l, int xl, int xxl,String arriveday ,int userId)  {
+		boolean isComplete = dao.orderComplete(proId, payment, orderday,l, xl, xxl, arriveday, userId);
 		return isComplete;
 	}
 	
@@ -46,5 +46,6 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public void incrementProducts(int l, int xl, int xxl, int proId) {
 		dao.incrementProducts(l, xl, xxl, proId);
 	}
+	
 
 }

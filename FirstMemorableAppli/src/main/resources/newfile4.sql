@@ -197,6 +197,22 @@ CREATE TABLE size_correct
  (2,'XL'),
  (3,'XXL');
  
+ 
+DROP TABLE order_master;
+CREATE TABLE order_master
+(
+	order_id int NOT NULL UNIQUE AUTO_INCREMENT,
+	product_id int NOT NULL,
+	payment varchar(100) NOT NULL,
+	orderday timestamp NOT NULL,
+	l_size int NOT NULL,
+	xl_size int NOT NULL,
+	xxl_size int NOT NULL,
+	arriveday varchar(100),
+	user_id int NOT NULL,
+	PRIMARY KEY (order_id)
+);
+ 
 
  
 

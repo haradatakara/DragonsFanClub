@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.user.LoginDao;
+import com.example.demo.entity.update.UpdateOrder;
 import com.example.demo.entity.user.UserInfo;
 
 @Service
@@ -16,18 +17,6 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	public LoginServiceImpl(LoginDao dao) {
 		this.dao = dao;
-	}
-
-	@Override
-	public void update(UserInfo usersInfo) {
-		// TODO 自動生成されたメソッド・スタブ
-		
-	}
-
-	@Override
-	public List<UserInfo> getAll() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
 	}
 
 	@Override
@@ -82,6 +71,20 @@ public class LoginServiceImpl implements LoginService {
 	public boolean updateResultPass(String inputPass, int id) {
 		boolean isUpdate = dao.updateResultPass(inputPass, id);
 		return isUpdate;
+	}
+	
+	public List<UpdateOrder> confirmOrder(int userId) {
+		List<UpdateOrder> list = dao.confirmOrder(userId);
+		return list;
+	}
+	
+	public void cancelOrder(int orderId,int l, int xl, int xxl, int productId)  {
+		dao.cancelOrder(orderId, l, xl, xxl,productId);
+	}
+	
+	public UpdateOrder detailOrder(int orderId) {
+		UpdateOrder uo = dao.detailOrder(orderId);
+		return uo;
 	}
 
 

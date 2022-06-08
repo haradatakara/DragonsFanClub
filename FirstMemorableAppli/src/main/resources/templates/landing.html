@@ -9,6 +9,7 @@
 <meta name="author" content="">
 <title>LandingPage</title>
  <!-- Bootstrap core CSS -->
+    <link rel="icon" href="/img/icon.png">
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
     <link href="/css/style.css" th:href="@{/css/landing.css}" rel="stylesheet">
     <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
@@ -23,10 +24,10 @@
       <img src="/img/img1.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/img/img2.jpg" class="d-block w-100" alt="...">
+      <img src="/img/shop/ootora/img1.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/img/img3.jpg" class="d-block w-100" alt="...">
+      <img src="/img/background.jpg" class="d-block w-100" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -41,36 +42,31 @@
 	<main class="container-fluid">
 	<div class="section-container">
 		<button class="card" th:onclick="location.href='/mystyle/landing/all_shop'">
-			<img src="/img/img4.jpg" class="card-img-top" alt="...">
-			<div class="card-body">
+			<img src="/img/img4.jpg" class="card-img-top">
+			<div class="card-body" style="margin: 0 auto;">
 				<h5 class="card-title">SEARCH</h5>
-				<p class="card-text">Some quick example text to build on the
-					card title and make up the bulk of the card's content.</p>
+				<p class="card-text">提携しているショップの一覧を閲覧できます</p>
 			</div>
 		</button>
 		<button class="card" th:onclick="location.href='/mystyle/landing/update'">
-			<img src="/img/hit-g36d630938_640.jpg" class="card-img-top" alt="...">
-			<div class="card-body">
+			<img src="/img/search.jpg" class="card-img-top" alt="...">
+			<div class="card-body " style="margin: 0 auto;">
 				<h5 class="card-title">UPDATE</h5>
-				<p class="card-text">Some quick example text to build on the
-					card title and make up the bulk of the card's content.</p>
+				<p class="card-text">ユーザー情報や注文履歴の確認・変更、またはクーポンを取得することができます</p>
 			</div>
 		</button>
 		<button class="card" th:onclick="location.href='/mystyle/landing/twitter'">
-			<img src="/img/img3.jpg" class="card-img-top" alt="...">
-			<div class="card-body">
+			<img src="/img/tweet.jpg" class="card-img-top" alt="...">
+			<div class="card-body" style="margin: 0 auto;">
 				<h5 class="card-title">TWITTER</h5>
-				<p class="card-text">Some quick example text to build on the
-					card title and make up the bulk of the card's content.</p>
+				<p class="card-text">古着好きユーザーとチャットを通じて会話することができます</p>
 			</div>
 		</button>
 		<button class="card" th:onclick="location.href='/mystyle/landing/shopping'">
-			<img src="/img/img2.jpg" class="card-img-top" alt="...">
-			<div class="card-body">
+			<img src="/img/background.jpg" class="card-img-top" alt="...">
+			<div class="card-body" style="margin: 0 auto;">
 				<h5 class="card-title">SHOPPING</h5>
-				<p class="card-text">Some quick example text to build on the
-					card title and make up the bulk of the card's content.
-				</p>
+				<p class="card-text">提携しているショップの商品を購入することができます</p>
 			</div>
 		</button>
 	</div>

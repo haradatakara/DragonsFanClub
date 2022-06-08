@@ -9,6 +9,7 @@
 <meta name="author" content="">
 <title>PART_SEARCH_RESULT</title>
 <!-- Bootstrap core CSS -->
+<link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 <link href="/css/style.css" th:href="@{/css/partSearchResult.css}"
 	rel="stylesheet">
@@ -19,8 +20,8 @@
 </head>
 <body style="background-color: #eee;">
 	<div th:replace="navi :: nav"></div>
-	<main class="container-fluid" th:each="l :${resultList}">
-		<h1 class="sec-title">SHOP DETAILS</h1>
+	<main class="main-fluid" th:each="l :${resultList}">
+		<h1 class="sec-title" style="margin-bottom: 30px;"><img src="/img/icon.png" style="width: 80px;" >SHOP DETAILS<img src="/img/icon4.png" style="width: 80px;" ></h1>
 		<div id="carouselExampleFade" class="carousel slide carousel-fade"
 			data-bs-ride="carousel" style="max-width: 800px; margin: 0 auto;">
 			<div class="carousel-inner mainvisual">

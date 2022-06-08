@@ -12,7 +12,7 @@ public interface ShoppingService  {
 	
 	Products displayDetailProduct(int proId);
 	
-	boolean orderComplete(int proId, String payment, LocalDateTime orderday, int userId);
+	 boolean orderComplete(int proId, String payment, LocalDateTime orderday, int l, int xl, int xxl,String arriveday ,int userId);
 	
 	List<SizeStock> countProduct(int proId);
 	
