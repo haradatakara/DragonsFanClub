@@ -24,7 +24,8 @@
 			<span class="navbar-brand mb-0 h8 text-white">MyStyle</span>
 		</div>
 	</nav>
-	<form method="POST" th:action="@{/mystyle/signUp}" th:object="${signUpForm}">
+	<form method="POST" th:action="@{/mystyle/signUp}"
+		th:object="${signUpForm}">
 		<h1 class="title">SignUpForm</h1>
 		<p class="input-error" th:if="${passError}" th:text="${passError}"></p>
 		<div class="mb-3">
@@ -36,8 +37,7 @@
 				placeholder="山田太郎" th:value="*{username}">
 		</div>
 		<div class="mb-3 age-area">
-			<label class="form-label">Age</label> 
-			<select
+			<label class="form-label">Age</label> <select
 				class="form-select form-select-sm" name="age_id"
 				aria-label=".form-select-sm example">
 				<option value="1">10代</option>
@@ -59,12 +59,10 @@
 		<div class="mb-3">
 			<label for="exampleInputEmail1" class="form-label"
 				style="display: inline-block;">Image</label>
-			<!-- 	<th:block th:if="${imgId > 0 && imgId < 9}">
-				<img class="select-img" th:src="|/img/user/img${imgId}.jpg|"
+			<th:block >
+				<img class="select-img" th:src="*{userImg}"
 					style="width: 100px; height: 100px; border-radius: 50%;">
-				<input type="hidden" name="userImg" th:value="${imgId}">
-			</th:block> -->
-			<img class="select-img" src="/img/user/img1.jpg" style="width: 100px; height: 100px; border-radius: 50%;">
+			</th:block>
 			<input class="select-input" type="hidden" name="userImg" value="">
 
 			<!-- Button trigger modal -->
@@ -87,7 +85,8 @@
 							<th:block th:each="i : ${#numbers.sequence(1, 8)}">
 								<div class="content">
 									<button class="btn-img" type="button" data-bs-dismiss="modal">
-										<img th:src="|/img/user/img${i}.jpg|" style="height: 150px; width: 150px;">
+										<img th:src="|/img/user/img${i}.jpg|"
+											style="height: 150px; width: 150px;">
 									</button>
 									<input class="btn-input" th:value="${i}" type="hidden">
 								</div>
@@ -117,8 +116,8 @@
 		<div class="mb-5 pt-5 btn-wrapper">
 			<p>ログインページへの移動はこちらから</p>
 			<p>☟☟☟☟☟☟☟☟☟☟☟</p>
-			<input type="button" onclick="location.href='./signIn'"
-				value="ログイン" class="btn btn-primary" />
+			<input type="button" onclick="location.href='./signIn'" value="ログイン"
+				class="btn btn-primary" />
 		</div>
 	</form>
 	<script type="text/javascript" th:inline="javascript">

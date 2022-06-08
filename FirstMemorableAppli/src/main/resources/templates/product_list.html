@@ -30,7 +30,7 @@
 	   </th:block>
 	   <main style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
 	   <th:block th:each="l : ${list}">
-	      <form th:action="@{/mystyle/landing/product_list/product_detail/{pro_id} (pro_id = *{l.getPro_id()})}">
+	      <form style="width: 45%;" th:action="@{/mystyle/landing/product_list/product_detail/{pro_id} (pro_id = *{l.getPro_id()})}">
 			<button type="submit" class="card bg-dark text-white"  style="width: 100%; text-align:left;">
 				<img th:src="|${l.getPro_img()}img1.jpg|" class="card-img" alt="...">
 				<div class="card-img-overlay">

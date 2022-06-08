@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>スレッド</title>
+<!-- Bootstrap core CSS -->
+<link rel="icon" href="/img/icon.png">
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<link href="/css/style.css" th:href="@{/css/allSearch.css}"
+	rel="stylesheet">
+<link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
+	rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="starter-template.css" th:href="@{/css/starter-template.css}"
+	rel="stylesheet">
+</head>
+<body style="background-color: #eee;">
+	<div th:replace="navi :: nav"></div>
+	<main class="main-fluid">
+		<h1 class="sec-title">
+			<img src="/img/icon.png" style="width: 80px;">Thread<img
+				src="/img/icon4.png" style="width: 80px;">
+		</h1>
+		<div class="card-container">
+			<th:block th:each="l, Stat : ${list}" class="card-container">
+				<form th:action="@{/mystyle/landing/thread/{threadId} (threadId = ${l.getThread_id()})}">
+					<button type="submit" class="card card1 shop-photo"
+						style="display: block; flex-direction: initial; border-radius: 5%; height: 400px;">
+						<img src="/img/img3.jpg" class="card-img-top"
+							style="border-radius: 5%; height: 200px;" />
+						<div class="card-body">
+							<h5 class="card-title" th:text="${l.getTitle()}">最近吉祥寺に出店したOOOについて</h5>
+							<p style="color: black;" th:text="${l.getCreate_user()}">作成者：タカラ</p>
+							<p style="color: black;" th:text="${l.getCreated()}">2022-05-26 18:12:44</p>
+						</div>
+					</button>
+				</form>
+			</th:block>
+		</div>
+	</main>
+
+	<footer>
+		<p class="footer">&copy;Takara.H</p>
+	</footer>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

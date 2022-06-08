@@ -21,56 +21,71 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-success"
-	th:fragment="nav">
-	<div class="container-fluid">
-		<a class="navbar-brand mb-0 mr-5 text-white"
-			th:href="@{/mystyle/landing}"><img alt="" src="/img/icon.png" style="width: 60px;">MyStyle<img alt="" src="/img/icon3.png" style="width: 60px;"></a>
-		
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-			data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="nav-con collapse navbar-collapse" id="navbarNavDropdown"
-			style="display: flex; justify-content: space-between;">
-			<ul class="navbar-nav">
-				<li class="nav-item mr-5"><a class="nav-link text-white"th:href="@{/mystyle/landing/all_shop}">SEARCH </a></li>
-				<li class="nav-item mr-5"><a class="nav-link text-white"
-					th:href="@{/mystyle/landing/shopping}">SHOPPING</a></li>
-				<li class="nav-item mr-5"><a class="nav-link text-white"
-					th:href="@{/mystyle/landing/twitter}">TWITTER</a></li>
-			</ul>
+	<nav class="navbar navbar-expand-lg navbar-light bg-success"
+		th:fragment="nav">
+		<div class="container-fluid">
+			<a class="navbar-brand mb-0 mr-5 text-white"
+				th:href="@{/mystyle/landing}"><img alt="" src="/img/icon.png"
+				style="width: 60px;">MyStyle<img alt="" src="/img/icon3.png"
+				style="width: 60px;"></a>
 
-			<div th:if="${form != null}" style="display: flex; align-items:baseline; padding-top: 10px;">
-				<button
-					onclick="location.href='/mystyle/landing/product_list/cart'"
-					class="cart">
-					<img src="/img/cart.png"
-						style="width: 40px; border-radius: 50%;">
-				</button>
-				<ul>
-					 <li class="nav-item dropdown" style="list-style: none;"><a
-						class="nav-link dropdown-toggle text-white mr-3" 
-						href="#" id="navbarDropdownMenuLink" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"
-						th:text="${form.getUser_name()} + 'さんこんにちは！'"></a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="nav-con collapse navbar-collapse" id="navbarNavDropdown"
+				style="display: flex; justify-content: space-between;">
+				<ul class="navbar-nav">
+					<li class="nav-item mr-5"><a class="nav-link text-white"
+						th:href="@{/mystyle/landing/all_shop}">SEARCH </a></li>
+					<li class="nav-item mr-5"><a class="nav-link text-white"
+						th:href="@{/mystyle/landing/thread}">TWITTER</a></li>
+					<li class="nav-item dropdown mr-5"><a
+						class="nav-link dropdown-toggle text-white"  href="#"
+						id="navbarDropdownMenuLink" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false">SHOPPING </a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item" type="submit"
-								th:href="@{/mystyle/landing/update}">UPDATE</a></li>
-							<li>
-								<a type="button" class="btn dropdown-item" onclick="location.href='/mystyle/logout'">LOGOUT</a>
-							</li>
-							
+							<li><a class="dropdown-item" onclick="location.href='/mystyle/landing/product_list/1'">TOPS</a></li>
+							<li><a class="dropdown-item" onclick="location.href='/mystyle/landing/product_list/2'">PANTS</a></li>
 						</ul>
 					</li>
-					
-				</ul> 
-				
-			</div>
+				</ul>
 
+				<div th:if="${form != null}"
+					style="display: flex; align-items: baseline; padding-top: 10px;">
+					<button
+						onclick="location.href='/mystyle/landing/product_list/cart'"
+						class="cart">
+						<img src="/img/cart.png" style="width: 40px; border-radius: 50%;">
+					</button>
+					<ul>
+						<li class="nav-item dropdown" style="list-style: none;"><a
+							class="nav-link dropdown-toggle text-white mr-3" href="#"
+							id="navbarDropdownMenuLink" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false"
+							th:text="${form.getUser_name()} + 'さんこんにちは！'"></a>
+							<ul class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<li><a class="dropdown-item" type="submit"
+									th:href="@{/mystyle/landing/update}">UPDATE</a></li>
+								<li><a type="button" class="btn dropdown-item"
+									onclick="location.href='/mystyle/logout'">LOGOUT</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div th:if="${form == null}"
+					style="display: flex; align-items: baseline; margin-right: 100px;">
+					<a type="button" class="btn btn-primary text-white" style="width: 100px; height: 50px:"
+									onclick="location.href='/mystyle/signIn'">SignIn
+									<img src="/img/login.png" style="width: 50px;">
+									</a>
+				</div>
+
+			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
 </body>
 </html>

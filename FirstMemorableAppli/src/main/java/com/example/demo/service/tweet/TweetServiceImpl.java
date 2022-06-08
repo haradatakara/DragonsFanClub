@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.tweet.TweetDao;
+import com.example.demo.entity.tweet.ThreadTable;
 import com.example.demo.entity.tweet.Tweet;
 @Service
 public class TweetServiceImpl implements TweetService {
@@ -17,8 +18,8 @@ public class TweetServiceImpl implements TweetService {
 	}
 
 	@Override
-	public boolean InsertTweet(Tweet tweet) {
-		boolean isInsert = dao.InsertTweet(tweet);
+	public boolean InsertTweet(Tweet tweet, int threadId) {
+		boolean isInsert = dao.InsertTweet(tweet, threadId);
 		return isInsert;
 	}
 
@@ -43,6 +44,17 @@ public class TweetServiceImpl implements TweetService {
 	@Override
 	public List<Tweet> SearchPushLike(int userId) {
 		List<Tweet> list = dao.SearchPushLike(userId);
+		return list;
+	}
+	
+	public List<ThreadTable> displayThred() {
+		List<ThreadTable> threads = dao.displayThred();
+		
+		return threads;
+	}
+	
+	public List<Tweet> ditailThred(int threadId) {
+		List<Tweet> list = dao.ditailThred(threadId);
 		return list;
 	}
 

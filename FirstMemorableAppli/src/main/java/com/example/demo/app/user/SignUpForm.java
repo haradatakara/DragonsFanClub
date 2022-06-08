@@ -33,5 +33,5 @@ public class SignUpForm {
 	    private String repassword;
 	    
 	    @NotNull
-	    private String userImg;
+	    private String userImg = "/img/user/img1.jpg";
 }

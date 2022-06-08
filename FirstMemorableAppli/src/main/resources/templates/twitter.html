@@ -43,7 +43,7 @@
 								<div th:text="*{l.getComment()}" style="height: 20px;"></div>
 							</div>
 							<div class="twitter__icon">
-							 <form th:action="@{/mystyle/landing/twitter/like_count/{commentId}(commentId= *{l.getTweetId()}) }" method="POST"> 
+							 <form th:action="@{/mystyle/landing/thread/like_count/{commentId}/{thread_id} (commentId= *{l.getTweetId()} , thread_id = ${threadId}) }" method="POST"> 
 							        <th:block th:if="${l.isLiked()}">
 							             <button class="twitter-heart blue" type="submit" style="border: none; outline: none;"></button> 
 							        </th:block>
@@ -59,7 +59,7 @@
 			    </th:block>
 			</div>
 			<div class="comment__form" style="margin-top: 100px;">
-			 <form th:action="@{/mystyle/landing/twitter/tweet_complete}" method="post"> 
+			 <form th:action="@{/mystyle/landing/thread/tweet_complete/{thread_id}  (thread_id = ${threadId})  }" method="POST"> 
 			       <th:block th:if="${error}">
 			         <div class="alert alert-danger" role="alert">正しい値を入力してください</div>
 			       </th:block>

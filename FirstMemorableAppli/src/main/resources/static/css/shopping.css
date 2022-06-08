@@ -34,7 +34,7 @@ a {
 }
 .card {
 	width: 45%;
-	margin-bottom: 50px; 
+	margin-bottom: 30px; 
 	height: 400px;
 }
 img {
@@ -44,8 +44,8 @@ img {
 	opacity: 0.7;
 }
 .footer {
-	margin-top: 100px;
-	padding-bottom: 30px;
+	padding-bottom: 20px;
+	margin-top: 80px;
 	
 }
 

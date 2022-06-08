@@ -21,4 +21,5 @@ public class Tweet {
 	private boolean isLiked;
 	private String username;
 	private String mailaddress;
+	private int thread_id;
 }

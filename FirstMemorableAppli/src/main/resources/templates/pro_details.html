@@ -29,7 +29,7 @@
 			<h3 th:if="${error}" th:text="${error}" style="max-width: 850px; margin: 0 auto; padding: 50px 20px; color: red; height: 50px;"></h3>
 		<form id="item" class="wrapper" th:action="@{/mystyle/landing/product_list/cart/{pro_id} (pro_id = *{l.getPro_id()})}">
 				<div class="item-image">
-					<img th:src="|${l.getPro_img()}img1.jpg|" style="height: 400px;">
+					<img th:src="|${l.getPro_img()}img1.jpg|" style="height: 400px; object-fit: cover; ">
 				</div>
 				<div class="item-info">
 					<h1 class="item-title" th:text="${l.getPro_name()}">TOTALLY

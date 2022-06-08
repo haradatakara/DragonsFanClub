@@ -73,7 +73,7 @@ public class LoginController {
 			}			
 		}	
 		session.invalidate();
-		return "top";
+		return "landing";
 	}
 
 	
@@ -92,7 +92,6 @@ public class LoginController {
 				UserInfo userInfo = new UserInfo();
 				userInfo.setUser_name(signUpForm.getUsername());
 				userInfo.setPassword(signUpForm.getPassword());
-				
 				//メールアドレスがユニークかどうか判定
 				if(loginService.checkUnique(signUpForm.getMailaddress())) {
 				} else {
@@ -100,7 +99,6 @@ public class LoginController {
 					model.addAttribute("mailError", "そのメールアドレスは、すでに登録済みです。");
 					return "signUp";
 				}
-				
 				userInfo.setMailaddress(signUpForm.getMailaddress());
 				userInfo.setAge_id(signUpForm.getAge_id());
 				userInfo.setUser_img(signUpForm.getUserImg());

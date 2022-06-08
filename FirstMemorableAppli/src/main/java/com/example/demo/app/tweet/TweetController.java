@@ -18,13 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.app.user.SignInForm;
+import com.example.demo.entity.tweet.ThreadTable;
 import com.example.demo.entity.tweet.Tweet;
 import com.example.demo.entity.user.UserInfo;
 import com.example.demo.service.tweet.TweetService;
 import com.example.demo.service.user.LoginService;
 
+//@RequestMapping("/mystyle/landing/twitter")
 @Controller
-@RequestMapping("/mystyle/landing/twitter")
+@RequestMapping("/mystyle/landing/thread")
 public class TweetController {
 	
 	private final TweetService tweetService;
@@ -39,17 +41,32 @@ public class TweetController {
 	}
 	
 	@GetMapping
-	@PostMapping
-	public String getTwitter(Model model, SignInForm signInForm) { 
+	public String thread(Model model, SignInForm signInForm) {
 		try {
-			if((Integer) session.getAttribute("id") == null) {
-				model.addAttribute("notlogin", "ツイート機能を利用するには、ログインをおこなってください");
+			if ((Integer) session.getAttribute("id") == null) {
 				model.addAttribute("signInForm", signInForm);
 				return "signIn";
 			}
+			model.addAttribute("form", loginService.fetchUserInfoId((int) session.getAttribute("id")));
+		} catch (Exception e) {
+		}
+		List<ThreadTable> threads = tweetService.displayThred();
+		model.addAttribute("list", threads);
+
+		return "thread";
+	}
+	
+	@GetMapping("{threadId}") 
+	@PostMapping("{threadId}") 
+	public String detailThread(
+			Model model, 
+			@PathVariable("threadId") int threadId
+			) {
+		try {
+			
 			UserInfo user = loginService.fetchUserInfoId((int) session.getAttribute("id"));
 			model.addAttribute("form", user);
-			List<Tweet> list = tweetService.displayTweet();
+			List<Tweet> list = tweetService.ditailThred(threadId);
 			List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
 			for(Tweet t: list) {
 				t.setLiked(false);
@@ -60,28 +77,66 @@ public class TweetController {
 				}			
 			}
 			model.addAttribute("list", list);
+			model.addAttribute("threadId", threadId);
 			//自分がいいねしたコメント(likes.getLikeId())とlistの中のコメント(list.getTweetId())が一致していればblueheartに変更する。出なければgryheartに
 			model.addAttribute("name", user.getUser_name());
 			model.addAttribute("mail", user.getMailaddress());
 			model.addAttribute("image", user.getUser_img());
 			model.addAttribute("form", user);
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "twitter";
 	}
 	
 	
+//	@GetMapping
+//	@PostMapping
+//	public String getTwitter(Model model, SignInForm signInForm) { 
+//		try {
+//			if((Integer) session.getAttribute("id") == null) {
+//				model.addAttribute("notlogin", "ツイート機能を利用するには、ログインをおこなってください");
+//				model.addAttribute("signInForm", signInForm);
+//				return "signIn";
+//			}
+//			UserInfo user = loginService.fetchUserInfoId((int) session.getAttribute("id"));
+//			model.addAttribute("form", user);
+//		   List<Tweet> list = tweetService.displayTweet();
+////			List<Tweet> list = tweetService.ditailThred()
+//			List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
+//			for(Tweet t: list) {
+//				t.setLiked(false);
+//				for(Tweet l: likes) {
+//					if(t.getTweetId() == l.getLikeId()) {
+//						t.setLiked(true);
+//					}
+//				}			
+//			}
+//			model.addAttribute("list", list);
+//			//自分がいいねしたコメント(likes.getLikeId())とlistの中のコメント(list.getTweetId())が一致していればblueheartに変更する。出なければgryheartに
+//			model.addAttribute("name", user.getUser_name());
+//			model.addAttribute("mail", user.getMailaddress());
+//			model.addAttribute("image", user.getUser_img());
+//			model.addAttribute("form", user);
+//		} catch (Exception e) {}
+//		
+//		return "twitter";
+//	}
 	
-	@PostMapping("tweet_complete")
+
+    @PostMapping("tweet_complete/{thread_id}")
 	public String twitter(
 			Model model, 
+			@PathVariable("thread_id") int threadId,
 			@Valid @ModelAttribute TweetForm tweetForm, 
 			BindingResult result
 		) {
+    	System.out.println(threadId);
 		boolean isError = false;
 		if(result.hasErrors()) {
 			isError = true;
-			List<Tweet> list = tweetService.displayTweet();
+			List<Tweet> list = tweetService.ditailThred(threadId);
 			List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
 			for(Tweet t: list) {
 				t.setLiked(false);
@@ -105,7 +160,7 @@ public class TweetController {
 			tweet.setComment(tweetForm.getComment());
 			tweet.setCreated(LocalDateTime.now());
 			tweet.setUserId((int)session.getAttribute("id"));
-            boolean isInsert = tweetService.InsertTweet(tweet);
+            boolean isInsert = tweetService.InsertTweet(tweet, threadId);
             List<Tweet> like = tweetService.SearchPushLike((int) session.getAttribute("id"));
     		model.addAttribute("likes", like);
             if(isInsert) {
@@ -125,7 +180,7 @@ public class TweetController {
         		model.addAttribute("name", user.getUser_name());
         		model.addAttribute("mail", user.getMailaddress());
         		model.addAttribute("form", user);
-            	return "redirect:/mystyle/landing/twitter";
+            	return "redirect:/mystyle/landing/thread/{thread_id}";
             } else {
             }
             return "twitter";
@@ -152,10 +207,11 @@ public class TweetController {
 	
 	
 	
-	@GetMapping("like_count/{commentId}")
+	@GetMapping("like_count/{commentId}/{thread_id}")
 	public String getcountLike(
 			Model model, 
-			@PathVariable("commentId") int commentId
+			@PathVariable("commentId") int commentId,
+			@PathVariable("thread_id") int thread_id
 			) {
 		List<Tweet> list = tweetService.displayTweet();
 		List<Tweet> likes = tweetService.SearchPushLike((int) session.getAttribute("id"));
@@ -170,7 +226,7 @@ public class TweetController {
 		model.addAttribute("list", list);
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
-		return "twitter";
+		return "redirect:/mystyle/landing/thread/{thread_id}";
 	}
 	
 	@PostMapping("like")
@@ -213,13 +269,14 @@ public class TweetController {
 		}
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
-		return "redirect:/mystyle/landing/twitter";
+		return "redirect:/mystyle/landing/thread/{thread_id}";
 	}
 
-	@PostMapping("like_count/{commentId}")
+	@PostMapping("like_count/{commentId}/{thread_id}")
 	public String postcountLike(
 			Model model, 
-			@PathVariable("commentId") int commentId
+			@PathVariable("commentId") int commentId,
+			@PathVariable("thread_id") int thread_id
 			) {
 		int userId = (int)session.getAttribute("id");
 		//すでにいいねしてないか判定
@@ -241,7 +298,7 @@ public class TweetController {
 					}			
 			}
 			 model.addAttribute("list", list2);
-			 return "redirect:/mystyle/landing/twitter";
+			 return "redirect:/mystyle/landing/thread/{thread_id}";
 		} else {
 			for(Tweet t: list) {
 				t.setLiked(false);
@@ -255,7 +312,7 @@ public class TweetController {
 		}
 		UserInfo user = loginService.fetchUserInfoId((int)session.getAttribute("id"));
 		model.addAttribute("form", user);
-		return "redirect:/mystyle/landing/twitter";
+		return "redirect:/mystyle/landing/thread/{thread_id}";
 	}
 
 }

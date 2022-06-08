@@ -125,12 +125,13 @@ CREATE TABLE tweet_table
 	comment varchar(140) NOT NULL,
 	created datetime NOT NULL,
 	user_id int DEFAULT 100 NOT NULL,
+	thread_id int NOT NULL,
 	PRIMARY KEY (comment_id)
 );
-INSERT INTO tweet_table(comment, created, user_id) VALUES
-('おはようございます！！！', '2022-05-26 18:12:44.413', 1),
-('こんばんは！！！', '2022-05-26 20:12:44.413', 2),
-('だるい', '2022-05-27 18:12:44.413', 1);
+INSERT INTO tweet_table(comment, created, user_id, thread_id) VALUES
+('おはようございます！！！', '2022-05-26 18:12:44.413', 1, 1),
+('こんばんは！！！', '2022-05-26 20:12:44.413', 2, 2),
+('だるい', '2022-05-27 18:12:44.413', 1,3);
 
 
 DROP TABLE usersInfo;
@@ -161,30 +162,18 @@ CREATE TABLE size_stock
  (4, 1, 0, 3),
  (5, 1, 1, 1);
  
- 
-DROP TABLE size_stock2;
-CREATE TABLE size_stock2
+DROP TABLE thread_table;
+CREATE TABLE thread_table
 (
-    stock_id int NOT NULL UNIQUE AUTO_INCREMENT,
-    product_id int NOT NULL ,
-    size_id int  NOT NULL
- );
- INSERT INTO size_stock2(product_id, size_id) VALUES
- (1, 1),
- (2, 2),
- (3, 1),
- (3, 2),
- (3, 2),
- (3, 3),
- (3, 3),
- (3, 3),
- (4, 1),
- (4, 3),
- (4, 3),
- (4, 3),
- (5, 1),
- (5, 2),
- (5, 3);
+     thread_id int  NOT NULL UNIQUE AUTO_INCREMENT,
+     title varchar(100) NOT NULL,
+     create_user_name varchar(100) NOT NULL,
+     created datetime NOT NULL
+);
+INSERT INTO thread_table(title, create_user_name, created) VALUES
+('最近吉祥寺に出店したOOOについて', 'タカラ', '2022-05-26 18:12:44.413'),
+('高円寺で一番美味しいカレー屋を教えてくれ', 'マツもら', '2022-05-27 18:12:44.413'),
+('最近高円寺に出店したOOOについて', 'タッキー', '2022-06-09 18:12:44.413');
  
 DROP TABLE size_correct;
 CREATE TABLE size_correct
